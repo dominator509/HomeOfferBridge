@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{META_TITLE}}</title>
+<meta name="description" content="{{META_DESC}}" />
+<link rel="canonical" href="https://{{DOMAIN}}/{{STATE_SLUG}}/{{CITY_SLUG}}/" />
+<meta property="og:title" content="{{META_TITLE}}" />
+<meta property="og:description" content="{{META_DESC}}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://{{DOMAIN}}/{{STATE_SLUG}}/{{CITY_SLUG}}/" />
+<meta name="robots" content="index,follow,max-image-preview:large" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css" />
+<script type="application/ld+json">{{SCHEMA_JSONLD}}</script>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <span><b>{{METRO}}'s trusted cash home buyer</b> · Rated 4.9★ across {{REVIEW_COUNT}} sellers</span>
+  <a class="call" href="tel:{{PHONE_RAW}}">Call {{PHONE}}</a>
+</div></div>
+
+<nav class="main"><div class="wrap">
+  <a class="brand" href="/"><span class="dot"></span>{{BRAND}}</a>
+  <a class="navcta" href="#offer">Get my cash offer</a>
+</div></nav>
+
+<section class="hero">
+<img src="{{CITY_HERO_IMAGE}}" alt="{{CITY_HERO_ALT}}" class="hero-bg" loading="eager" fetchpriority="high" decoding="async" />
+<meta itemprop="image" content="{{CITY_HERO_IMAGE}}" />
+<link rel="preload" as="image" href="{{CITY_HERO_IMAGE}}" />
+<div class="wrap">
+  <div>
+    <span class="eyebrow">Sell as-is · {{CITY}}, {{STATE_ABBR}}</span>
+    <h1>Sell your <span class="u">{{CITY}}</span> house fast — a fair cash offer in 24&nbsp;hours.</h1>
+    <p class="sub">No repairs, no cleaning, no agent fees. Skip the listing and pick your own closing date. We buy homes across {{METRO}} in any condition.</p>
+    <div class="microtrust" style="justify-content:flex-start">
+      <span><span class="tick">✓</span> No fees or commissions</span>
+      <span><span class="tick">✓</span> No obligation</span>
+      <span><span class="tick">✓</span> Close in as few as 7 days</span>
+    </div>
+  </div>
+
+  <div class="offercard" id="offer">
+    <div class="step-label"><span id="stepName">Where's the house?</span>
+      <span class="progress"><i class="on" id="p1"></i><i id="p2"></i><i id="p3"></i></span>
+    </div>
+    <div id="s1">
+      <p class="stepnote">Enter the property address — takes about 10 seconds.</p>
+      <div class="field"><input id="addr" type="text" autocomplete="street-address" placeholder="123 Main St, {{CITY}}, {{STATE_ABBR}}" /></div>
+      <button class="bigbtn" onclick="next()">See my cash offer →</button>
+      <div class="microtrust"><span><span class="tick">✓</span> Free &amp; private</span><span><span class="tick">✓</span> No spam, ever</span></div>
+    </div>
+    <div id="s2" style="display:none">
+      <p class="stepnote">Great — where should we send your offer? We'll call within 24 hours.</p>
+      <div class="field"><input id="name" type="text" autocomplete="name" placeholder="Your name" /></div>
+      <div class="field"><input id="email" type="email" autocomplete="email" inputmode="email" placeholder="Your email address" /></div>
+      <div class="field"><input id="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="Your phone number" /></div>
+      <label class="consent"><input type="checkbox" id="consent" /> <span>I agree to the <a href="/terms-of-service/" target="_blank">Terms of Service</a> and <a href="/privacy-policy/" target="_blank">Privacy Policy</a> of Home Offer Bridge. By checking this box and submitting my information, I expressly consent to receive recurring SMS messages, phone calls, and emails from Home Offer Bridge regarding my property inquiry and cash offer, and I acknowledge that I have read, understood, and agree to be bound by the foregoing terms. Message frequency varies. Message and data rates may apply. Consent is not a condition of any purchase.</span></label>
+      <button class="bigbtn" onclick="submitLead()">Get my offer now →</button>
+      <div class="microtrust"><span><span class="tick">✓</span> One quick call</span><span><span class="tick">✓</span> Zero obligation</span></div>
+    </div>
+    <div id="s3" style="display:none">
+      <p class="stepnote">Last step — this helps us make our strongest, most accurate offer. Your info is saved either way.</p>
+
+      <label class="fieldlabel">How would you rate the home's overall condition?</label>
+      <div class="condgrid" id="condgrid">
+        <label class="condcard c-exc"><input type="radio" name="cond" value="excellent" /><span class="cc-ic">✨</span><span class="cc-t">Turnkey</span><span class="cc-d">Move-in ready. Updated, clean, no known repairs.</span></label>
+        <label class="condcard c-good"><input type="radio" name="cond" value="good" /><span class="cc-ic">🙂</span><span class="cc-t">Good</span><span class="cc-d">Well maintained. Only minor cosmetic work.</span></label>
+        <label class="condcard c-fair"><input type="radio" name="cond" value="fair" /><span class="cc-ic">🛠️</span><span class="cc-t">Fair</span><span class="cc-d">Dated or some deferred upkeep. A few repairs needed.</span></label>
+        <label class="condcard c-poor"><input type="radio" name="cond" value="poor" /><span class="cc-ic">⚠️</span><span class="cc-t">Poor</span><span class="cc-d">Significant repairs — roof, HVAC, or systems. Visible wear.</span></label>
+        <label class="condcard c-sev"><input type="radio" name="cond" value="severe" /><span class="cc-ic">🚧</span><span class="cc-t">Major issues</span><span class="cc-d">Major damage (fire, water, foundation) or not livable as-is.</span></label>
+      </div>
+      <p class="fieldhint" id="condErr" style="display:none">Please select a condition so we can price your offer accurately.</p>
+
+      <label class="fieldlabel">Anything we should know about? <span class="opt">(check all that apply)</span></label>
+      <div class="discgrid">
+        <label><input type="checkbox" name="issue" value="roof" /> Roof</label>
+        <label><input type="checkbox" name="issue" value="foundation" /> Foundation</label>
+        <label><input type="checkbox" name="issue" value="plumbing_electrical" /> Plumbing / electrical</label>
+        <label><input type="checkbox" name="issue" value="water_mold" /> Water / mold</label>
+        <label><input type="checkbox" name="issue" value="hvac" /> HVAC / AC</label>
+        <label><input type="checkbox" name="issue" value="termites_pests" /> Termites / pests</label>
+        <label><input type="checkbox" name="issue" value="fire" /> Fire damage</label>
+        <label><input type="checkbox" name="issue" value="code_permits" /> Code / permit issues</label>
+      </div>
+
+      <label class="fieldlabel">Describe any damage or needed repairs <span class="opt">(optional — the more detail, the better your offer)</span></label>
+      <textarea id="disclose" class="discinput" rows="3" placeholder="e.g. Roof is ~20 years old and leaks in the back bedroom; water heater needs replacing…"></textarea>
+
+      <label class="consent"><input type="checkbox" id="ack" /> <span>I confirm the condition rating and disclosures above are accurate and complete to the best of my knowledge. I understand the final offer is confirmed after a quick property visit.</span></label>
+      <p class="fieldhint" id="ackErr" style="display:none">Please check the box to confirm your disclosures.</p>
+
+      <button class="bigbtn" onclick="submitDisclosure()">Finish &amp; get my offer →</button>
+      <div class="microtrust"><span><span class="tick">✓</span> Speeds up your offer</span><span><span class="tick">✓</span> No obligation</span></div>
+    </div>
+    <div id="sDone" style="display:none;text-align:center;padding:8px 0">
+      <div style="font-size:2rem">✅</div>
+      <h3 style="font-family:'Fraunces',serif;margin:6px 0">You're all set.</h3>
+      <p class="stepnote" style="margin:0">A {{CITY}} home specialist will call you within 24 hours with your no-obligation cash offer. Watch for a text from {{PHONE}}.</p>
+    </div>
+    <div class="meter">
+      <div class="row"><span id="meterMsg">Offer readiness</span><span id="meterPct">40%</span></div>
+      <div class="meterbar"><i id="meterFill" style="width:40%"></i></div>
+    </div>
+  </div>
+</div></section>
+
+<div class="strip"><div class="wrap">
+  <div><div class="n">{{HOMES_BOUGHT}}+</div><div class="l">Homes purchased</div></div>
+  <div><div class="n">7&nbsp;days</div><div class="l">Fastest close</div></div>
+  <div><div class="n">$0</div><div class="l">Fees or commissions</div></div>
+  <div><div class="n">4.9★</div><div class="l">{{REVIEW_COUNT}} seller reviews</div></div>
+</div></div>
+
+<section class="pad"><div class="wrap">
+  <div class="kicker">How it works</div>
+  <h2>Three steps. No surprises.</h2>
+  <p class="lead">The traditional {{CITY}} sale takes months of showings, repairs, and buyer financing that can fall through. Ours is built to remove every one of those risks.</p>
+  <div class="steps">
+    <div class="step"><div class="num">1</div><h3>Tell us the address</h3><p>Share your {{CITY}} property and a phone number. That's the whole form — no long questionnaire.</p></div>
+    <div class="step"><div class="num">2</div><h3>Get your cash offer</h3><p>A local specialist reviews recent {{METRO}} sales and calls within 24 hours with a fair, no-obligation number.</p></div>
+    <div class="step"><div class="num">3</div><h3>Close on your date</h3><p>Accept and we close through a licensed {{STATE}} title company — in as few as 7 days, or whenever suits you.</p></div>
+  </div>
+</div></section>
+
+<section class="pad alt"><div class="wrap">
+  <div class="kicker">Why sellers choose us</div>
+  <h2>Everything a listing can't promise.</h2>
+  <div class="vgrid">
+    <div class="v"><div class="ic">💵</div><h3>A fair cash offer</h3><p>We buy with our own capital — no lender, no financing contingency, no deal falling apart at the last minute.</p></div>
+    <div class="v"><div class="ic">🔧</div><h3>Any condition</h3><p>Fire, water, tenants, hoarding, deferred repairs — we've bought it all. Leave behind whatever you don't want.</p></div>
+    <div class="v"><div class="ic">🚫</div><h3>Zero fees</h3><p>No commissions, no closing costs, no junk fees. The number we agree on is the number you walk away with.</p></div>
+    <div class="v"><div class="ic">📅</div><h3>Your timeline</h3><p>Need to close next week or three months out? You pick the date. Stay after closing if you need to.</p></div>
+    <div class="v"><div class="ic">🛡️</div><h3>No obligation</h3><p>The offer is free and yours to walk away from. No pressure, no cost, no strings.</p></div>
+    <div class="v"><div class="ic">🤝</div><h3>Beat a real offer?</h3><p>Already have a written offer? Tell us — we'll review it and try to beat it.</p></div>
+  </div>
+</div></section>
+
+<section class="pad"><div class="wrap">
+  <div class="kicker">The honest comparison</div>
+  <h2>Cash sale vs. listing with an agent</h2>
+  <div class="compare">
+    <div class="hd"><div>What matters to you</div><div>Listing with agent</div><div class="us">Selling to us</div></div>
+    <div class="rw"><div>Time to close</div><div>60–90+ days</div><div class="us"><span class="yes">7+ days</span></div></div>
+    <div class="rw"><div>Commissions &amp; fees</div><div class="no">5–6%</div><div class="us"><span class="yes">$0</span></div></div>
+    <div class="rw"><div>Repairs required</div><div class="no">Often</div><div class="us"><span class="yes">None</span></div></div>
+    <div class="rw"><div>Showings &amp; open houses</div><div class="no">Many</div><div class="us"><span class="yes">Zero</span></div></div>
+    <div class="rw"><div>Risk of deal collapsing</div><div class="no">High</div><div class="us"><span class="yes">None</span></div></div>
+    <div class="rw"><div>Who pays closing costs</div><div>You</div><div class="us"><span class="yes">We do</span></div></div>
+  </div>
+</div></section>
+
+<!-- ANTI-DOORWAY: genuinely unique, factual, city-specific longform content -->
+<section class="pad"><div class="wrap">
+  <div class="local">
+    <div class="kicker" style="color:var(--gold)">On the ground in {{CITY}}</div>
+    <h2>We actually know the {{METRO}} market.</h2>
+    <p class="lead">Our offers are grounded in real, recent {{CITY}} sales — not a generic algorithm. Here's what the local market looks like right now.</p>
+    <div class="localgrid">
+      <div><div class="n">{{MEDIAN_PRICE}}</div><div class="l">Median {{CITY}} home value</div></div>
+      <div><div class="n">{{AVG_DOM}} days</div><div class="l">Average time on market</div></div>
+      <div><div class="n">{{CASH_SHARE}}</div><div class="l">Share of sales paid in cash</div></div>
+    </div>
+    <div class="longform">{{LOCAL_MARKET_LONGFORM}}</div>
+    <p class="neigh">We buy across every {{CITY}} neighborhood — including <b>{{NEIGHBORHOODS}}</b> — and the surrounding {{METRO}} towns. Whether you're near {{LANDMARK}} or out toward {{OUTLYING_AREA}}, we can make an offer.</p>
+  </div>
+</div></section>
+
+<!-- Situational long-tail supporting content (localized, unique) -->
+<section class="pad alt"><div class="wrap">
+  <div class="kicker">Whatever the situation</div>
+  <h2>Common reasons {{CITY}} homeowners sell to us</h2>
+  <div class="sitgrid">{{SITUATIONS_HTML}}</div>
+</div></section>
+
+<section class="pad"><div class="wrap">
+  <div class="kicker">What {{CITY}} sellers say</div>
+  <h2>Real people. Real closings.</h2>
+  <div class="quotes">{{TESTIMONIALS_HTML}}</div>
+</div></section>
+
+<section class="pad alt"><div class="wrap">
+  <div class="kicker">Questions, answered</div>
+  <h2>What {{CITY}} homeowners ask us</h2>
+  <div class="faq">{{FAQ_HTML}}</div>
+</div></section>
+
+<section class="final"><div class="wrap">
+  <div class="kicker" style="text-align:center">Ready when you are</div>
+  <h2>Get your fair cash offer on your {{CITY}} home today.</h2>
+  <p class="lead" style="margin:0 auto;text-align:center">No fees. No repairs. No obligation. Just a fair number and a closing date that works for you.</p>
+  <div class="offercard">
+    <div class="step-label"><span>Start with the address</span><span class="progress"><i class="on"></i><i></i></span></div>
+    <div class="field"><input type="text" placeholder="123 Main St, {{CITY}}, {{STATE_ABBR}}" onclick="document.getElementById('offer').scrollIntoView({behavior:'smooth'});document.getElementById('addr').focus()" readonly /></div>
+    <button class="bigbtn" onclick="document.getElementById('offer').scrollIntoView({behavior:'smooth'});document.getElementById('addr').focus()">See my cash offer →</button>
+    <div class="microtrust"><span><span class="tick">✓</span> Free</span><span><span class="tick">✓</span> Private</span><span><span class="tick">✓</span> 24-hour response</span></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div>
+    <div class="brand" style="font-family:'Fraunces',serif;font-size:1.2rem;margin-bottom:10px">{{BRAND}}</div>
+    <p style="max-width:38ch;margin:0">We buy houses for cash across {{METRO}}, {{STATE_ABBR}}. Any condition, any situation — a fair offer and a fast, certain close.</p>
+    <p style="margin-top:14px"><a href="tel:{{PHONE_RAW}}" style="color:var(--gold);font-weight:700">{{PHONE}}</a></p>
+  </div>
+  <div><b style="color:#fff">Company</b>
+    <a href="#offer">Get a cash offer</a><a href="/how-it-works/">How it works</a><a href="/reviews/">Reviews</a><a href="/faq/">FAQ</a><a href="/about/">About us</a><a href="/privacy-policy/">Privacy Policy</a><a href="/terms-of-service/">Terms of Service</a></div>
+  <div><b style="color:#fff">Service areas</b>
+    <a href="/{{STATE_SLUG}}/">All of {{STATE}}</a><a href="/{{STATE_SLUG}}/{{CITY_SLUG}}/">{{CITY}}</a><a href="/sitemap.xml">Full city list</a></div>
+  <div class="disc" style="grid-column:1/-1">
+    © <span id="yr"></span> {{BRAND}}. We are a real estate investment company and are not acting as your real estate agent or broker. Offers are non-obligation. Closing timelines vary by property and title status. Serving {{CITY}}, {{STATE}} and surrounding areas.<br />Mailing address: {{MAILING_ADDRESS}}
+  </div>
+</div></footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  var WEBHOOK = "{{LEAD_WEBHOOK}}";
+  var CITY = "{{CITY}}", STATE = "{{STATE_ABBR}}", SRC = "{{STATE_SLUG}}/{{CITY_SLUG}}";
+  function setMeter(pct,msg){document.getElementById('meterFill').style.width=pct+'%';document.getElementById('meterPct').textContent=pct+'%';if(msg)document.getElementById('meterMsg').textContent=msg;}
+  function next(){var a=document.getElementById('addr').value.trim();if(a.length<4){document.getElementById('addr').focus();return;}
+    document.getElementById('s1').style.display='none';document.getElementById('s2').style.display='block';
+    document.getElementById('p2').classList.add('on');document.getElementById('stepName').textContent='Last step';
+    setMeter(75,'Almost ready');document.getElementById('phone').focus();}
+  var CLIENT_REF = 'cr_' + Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+  function post(payload){try{if(WEBHOOK && WEBHOOK.indexOf('http')===0){fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).catch(function(){});}}catch(e){}}
+  // Step 2 → fire the CORE lead immediately (captured no matter what), then show disclosures.
+  function submitLead(){
+    var name=document.getElementById('name').value.trim();
+    var email=document.getElementById('email').value.trim();
+    var phone=document.getElementById('phone').value.trim();
+    var addr=document.getElementById('addr').value.trim();
+    var consent=document.getElementById('consent').checked;
+    if(phone.replace(/\D/g,'').length<7){document.getElementById('phone').focus();return;}
+    if(!consent){document.getElementById('consent').focus();return;}
+    post({client_ref:CLIENT_REF,event:'lead',name:name,email:email,address:addr,phone:phone,city:CITY,state:STATE,source:SRC,consent:consent,ts:new Date().toISOString(),page:location.href});
+    document.getElementById('s2').style.display='none';document.getElementById('s3').style.display='block';
+    document.getElementById('p3').classList.add('on');document.getElementById('stepName').textContent='Condition & disclosures';
+    setMeter(90,'One quick step');}
+  // Step 3 → enrichment: self-rated condition + disclosures. Correlated by client_ref.
+  function submitDisclosure(){
+    var cond=(document.querySelector('input[name="cond"]:checked')||{}).value;
+    var ackd=document.getElementById('ack').checked;
+    document.getElementById('condErr').style.display=cond?'none':'block';
+    document.getElementById('ackErr').style.display=ackd?'none':'block';
+    if(!cond||!ackd){return;}
+    var issues=Array.prototype.slice.call(document.querySelectorAll('input[name="issue"]:checked')).map(function(i){return i.value;});
+    post({client_ref:CLIENT_REF,event:'enrich',city:CITY,state:STATE,source:SRC,self_rated_condition:cond,disclosed_issues:issues,disclosure_text:document.getElementById('disclose').value.trim(),disclosure_ack:true,ts:new Date().toISOString()});
+    document.getElementById('s3').style.display='none';document.getElementById('sDone').style.display='block';
+    document.getElementById('stepName').textContent='Submitted';setMeter(100,'Offer on the way');}
+  document.getElementById('addr').addEventListener('input',function(){setMeter(this.value.trim().length>3?60:40,'Offer readiness');});
+</script>
+</body>
+</html>

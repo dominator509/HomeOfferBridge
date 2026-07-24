@@ -1,0 +1,81 @@
+{
+  "city": "Madison",
+  "city_slug": "madison",
+  "metro": "south-central Wisconsin",
+  "phone": "(509) 355-7455",
+  "phone_raw": "15093557455",
+  "review_count": 29,
+  "median_price": "$390,000",
+  "avg_dom": 22,
+  "cash_share": "20%",
+  "neighborhoods": "the Atwood/Schenk-Atwood area, Tenney-Lapham, the South Side, Sunset Village, and Burke Heights",
+  "landmark": "the Wisconsin State Capitol between the lakes",
+  "outlying_area": "Sun Prairie and Fitchburg",
+  "local_market_longform": "<p>Madison is its own market, and a cash sale here works differently than the national talking points suggest. Homes in Madison currently trade around a median of $390,000 and take roughly 22 days to go under contract, with about 20% of area sales closing in cash. When you need certainty instead of a drawn-out listing \u2014 a firm number and a date you choose \u2014 that local pace is exactly why selling directly makes sense.</p><p>The housing stock shapes everything about condition here. Madison runs heavily to 1900s\u20131930s bungalows and foursquares near the isthmus, post-war ranches, and newer suburban tracts, and each era carries its own repair realities. That matters because we price the house in front of us rather than asking you to renovate it first \u2014 the things a traditional buyer's inspector flags are the same things we already expect and account for.</p><p>Local conditions are the other factor a generic buyer ignores. Around Madison, the issues we see most are freeze-thaw foundation cracking, aging plumbing and knob-and-tube wiring, ice-dam roof damage, and basement moisture near the lakes. We've made offers on homes with every one of those problems, so none of it scares us off or kills the deal at the last minute.</p><p>We buy across the whole area \u2014 from close-in neighborhoods like the Atwood/Schenk-Atwood area out to Sun Prairie and Fitchburg \u2014 and in Wisconsin the local economy anchored by state government, the University of Wisconsin, and biotech and healthcare keeps demand real. Inherited homes, tired rentals, pre-foreclosure situations in Dane County, and houses that simply need more work than the owner wants to take on: those are the Madison sellers we help most.</p><p>Being a genuinely local buyer near the Wisconsin State Capitol between the lakes also means our offer isn't a lowball pulled from a national algorithm that has never seen Madison. We know what a block in the Atwood/Schenk-Atwood area, Tenney-Lapham, the South Side, and Sunset Village actually sells for, what south-central Wisconsin buyers will and won't pay for, and how Dane County's title and closing process really works. That local read is why our sellers get a number they can trust and a closing that actually happens on the date we promised.</p>",
+  "situations": [
+    {
+      "title": "Downsizing or aging in place",
+      "body": "When a longtime the Atwood/Schenk-Atwood area-area home has become too much to keep up, we make a fair offer and let you set a move-out date that isn't rushed."
+    },
+    {
+      "title": "The house needs too much work",
+      "body": "Fire, water, foundation, or years of deferred repairs \u2014 we've bought all of it around Madison. No cleaning, no contractors, no staging."
+    },
+    {
+      "title": "Relocating",
+      "body": "A job change shouldn't mean carrying two mortgages or managing a sale from a thousand miles away. Close on your schedule and move on."
+    },
+    {
+      "title": "Done being a landlord",
+      "body": "Problem tenants, deferred maintenance, or a Madison rental that stopped penciling out. We buy occupied properties and handle the situation so you can walk away clean."
+    },
+    {
+      "title": "Facing foreclosure",
+      "body": "If you're behind on payments in Dane County, a fast cash sale can settle the loan before it hits your credit. We move on your timeline, not the bank's."
+    },
+    {
+      "title": "Divorce or a major life change",
+      "body": "When the goal is simply to have the Madison house handled cleanly and split fairly, we make the sale the simple part."
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "Inherited my mom's place in the Atwood/Schenk-Atwood area and couldn't face fixing it up. They closed in nine days and I never had to fly back out.",
+      "who": "Angela K., Madison"
+    },
+    {
+      "quote": "Had a written offer already and they beat it. Straightforward, and the number they promised was the number at closing.",
+      "who": "Hector M., Fitchburg"
+    },
+    {
+      "quote": "Facing foreclosure and out of time. They moved fast, let me pick the date, and I walked away with cash in hand.",
+      "who": "Omar F., Madison"
+    }
+  ],
+  "faq": [
+    {
+      "q": "How fast can you close on my Madison house?",
+      "a": "As little as 7 days through a licensed Wisconsin title company, or any later date you choose. Sellers in Madison pick the timeline that fits their move."
+    },
+    {
+      "q": "Do I pay any fees or commissions?",
+      "a": "None. No agent commissions, no listing fees, and we cover standard closing costs. The number we agree on is what you receive."
+    },
+    {
+      "q": "Do I need to repair or clean the house first?",
+      "a": "No. We buy Madison homes in any condition \u2014 including the freeze-thaw foundation cracking we see so often here. Take what you want and leave the rest."
+    },
+    {
+      "q": "How do you decide the offer amount?",
+      "a": "We look at recent comparable sales in your Madison neighborhood \u2014 places like the Atwood/Schenk-Atwood area \u2014 the home's condition, and current south-central Wisconsin demand, then make a fair cash offer you're free to accept or decline."
+    },
+    {
+      "q": "Is this a licensed, legitimate way to sell in Wisconsin?",
+      "a": "Yes. We are a direct buyer, not your agent or broker, and we put that in writing. Wisconsin (Act 208) requires written disclosure to sellers before a purchase agreement; we provide it on every deal."
+    },
+    {
+      "q": "Can you help with foreclosure, probate, or tenants?",
+      "a": "Often, yes. We regularly work with Dane County sellers facing foreclosure, probate, liens, or tenant issues, and we structure the sale around the situation."
+    }
+  ]
+}

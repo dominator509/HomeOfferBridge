@@ -1,0 +1,81 @@
+{
+  "city": "Seattle",
+  "city_slug": "seattle",
+  "metro": "the Puget Sound region",
+  "phone": "(509) 355-7455",
+  "phone_raw": "15093557455",
+  "review_count": 131,
+  "median_price": "$865,000",
+  "avg_dom": 18,
+  "cash_share": "24%",
+  "neighborhoods": "Ballard, Beacon Hill, Rainier Valley, Wallingford, and West Seattle",
+  "landmark": "the Space Needle",
+  "outlying_area": "Renton and Kent",
+  "local_market_longform": "<p>Seattle is its own market, and a cash sale here works differently than the national talking points suggest. Homes in Seattle currently trade around a median of $865,000 and take roughly 18 days to go under contract, with about 24% of area sales closing in cash. When you need certainty instead of a drawn-out listing \u2014 a firm number and a date you choose \u2014 that local pace is exactly why selling directly makes sense.</p><p>The housing stock shapes everything about condition here. Seattle runs heavily to Craftsman bungalows from the 1900s\u20131920s, mid-century boxes, and dense 1990s\u20132000s townhomes, and each era carries its own repair realities. That matters because we price the house in front of us rather than asking you to renovate it first \u2014 the things a traditional buyer's inspector flags are the same things we already expect and account for.</p><p>Local conditions are the other factor a generic buyer ignores. Around Seattle, the issues we see most are aging knob-and-tube wiring in older homes, oil tanks buried in pre-1970 yards, moss-heavy roofs, and drainage or settling issues on the region's clay-and-fill hillsides. We've made offers on homes with every one of those problems, so none of it scares us off or kills the deal at the last minute.</p><p>We buy across the whole area \u2014 from close-in neighborhoods like Ballard out to Renton and Kent \u2014 and in Washington the local economy anchored by Amazon, Microsoft, Boeing, and a deep tech and healthcare base keeps demand real. Inherited homes, tired rentals, pre-foreclosure situations in King County, and houses that simply need more work than the owner wants to take on: those are the Seattle sellers we help most.</p><p>Being a genuinely local buyer near the Space Needle also means our offer isn't a lowball pulled from a national algorithm that has never seen Seattle. We know what a block in Ballard, Beacon Hill, Rainier Valley, and Wallingford actually sells for, what the Puget Sound region buyers will and won't pay for, and how King County's title and closing process really works. That local read is why our sellers get a number they can trust and a closing that actually happens on the date we promised.</p>",
+  "situations": [
+    {
+      "title": "Done being a landlord",
+      "body": "Problem tenants, deferred maintenance, or a Seattle rental that stopped penciling out. We buy occupied properties and handle the situation so you can walk away clean."
+    },
+    {
+      "title": "Divorce or a major life change",
+      "body": "When the goal is simply to have the Seattle house handled cleanly and split fairly, we make the sale the simple part."
+    },
+    {
+      "title": "Relocating",
+      "body": "A job change shouldn't mean carrying two mortgages or managing a sale from a thousand miles away. Close on your schedule and move on."
+    },
+    {
+      "title": "Inherited a house in Seattle",
+      "body": "Settling an estate \u2014 often from out of state \u2014 is hard enough without a listing on top of it. We buy inherited Seattle homes as-is, work alongside the King County probate process, and let you take what matters and leave the rest."
+    },
+    {
+      "title": "Facing foreclosure",
+      "body": "If you're behind on payments in King County, a fast cash sale can settle the loan before it hits your credit. We move on your timeline, not the bank's."
+    },
+    {
+      "title": "The house needs too much work",
+      "body": "Fire, water, foundation, or years of deferred repairs \u2014 we've bought all of it around Seattle. No cleaning, no contractors, no staging."
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "Inherited my mom's place in Rainier Valley and couldn't face fixing it up. They closed in nine days and I never had to fly back out.",
+      "who": "Karen K., Seattle"
+    },
+    {
+      "quote": "Had a written offer already and they beat it. Straightforward, and the number they promised was the number at closing.",
+      "who": "Chris C., Renton"
+    },
+    {
+      "quote": "Facing foreclosure and out of time. They moved fast, let me pick the date, and I walked away with cash in hand.",
+      "who": "Miguel F., Seattle"
+    }
+  ],
+  "faq": [
+    {
+      "q": "How fast can you close on my Seattle house?",
+      "a": "As little as 7 days through a licensed Washington title company, or any later date you choose. Sellers in Seattle pick the timeline that fits their move."
+    },
+    {
+      "q": "Do I pay any fees or commissions?",
+      "a": "None. No agent commissions, no listing fees, and we cover standard closing costs. The number we agree on is what you receive."
+    },
+    {
+      "q": "Do I need to repair or clean the house first?",
+      "a": "No. We buy Seattle homes in any condition \u2014 including the aging knob-and-tube wiring in older homes we see so often here. Take what you want and leave the rest."
+    },
+    {
+      "q": "How do you decide the offer amount?",
+      "a": "We look at recent comparable sales in your Seattle neighborhood \u2014 places like Ballard \u2014 the home's condition, and current the Puget Sound region demand, then make a fair cash offer you're free to accept or decline."
+    },
+    {
+      "q": "Is this a licensed, legitimate way to sell in Washington?",
+      "a": "Yes. We are a direct buyer, not your agent or broker, and we put that in writing. Washington has no wholesaling-specific statute; we operate as a direct buyer and disclose our interest in writing."
+    },
+    {
+      "q": "Can you help with foreclosure, probate, or tenants?",
+      "a": "Often, yes. We regularly work with King County sellers facing foreclosure, probate, liens, or tenant issues, and we structure the sale around the situation."
+    }
+  ]
+}

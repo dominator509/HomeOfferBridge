@@ -1,0 +1,16 @@
+{
+  "$schema":"http://json-schema.org/draft-07/schema#","title":"Offer","type":"object",
+  "required":["offer_id","property_id","stage"],
+  "properties":{
+    "offer_id":{"type":"string"},"property_id":{"type":"string"},"lead_id":{"type":"string"},
+    "stage":{"enum":["range","firm"],"description":"range=pre-inspection AI advisory; firm=post-inspection human-set"},
+    "arv_estimate":{"type":["number","null"]},
+    "repair_band":{"type":["object","null"],"properties":{"low":{"type":"number"},"high":{"type":"number"},"most_likely":{"type":"string"}}},
+    "range_low":{"type":["number","null"]},"range_high":{"type":["number","null"]},
+    "confidence":{"enum":["high","medium","low",null]},
+    "firm_amount":{"type":["number","null"],"description":"only set by a human after inspection"},
+    "set_by":{"type":["string","null"]},
+    "rationale":{"type":["string","null"]},
+    "flags":{"type":"array","items":{"type":"string"}}
+  }
+}

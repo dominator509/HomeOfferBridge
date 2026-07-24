@@ -1,0 +1,14 @@
+{
+  "$schema":"http://json-schema.org/draft-07/schema#","title":"Deal","type":"object",
+  "required":["deal_id","lead_id","property_id","status"],
+  "properties":{
+    "deal_id":{"type":"string"},"lead_id":{"type":"string"},"property_id":{"type":"string"},"offer_id":{"type":"string"},
+    "status":{"enum":["agreed","contract_sent","executed","title_open","clear_to_close","funded","closed","fell_through"]},
+    "agreed_price":{"type":["number","null"]},
+    "close_date":{"type":["string","null"]},
+    "title_company":{"type":["string","null"]},
+    "contract_docs":{"type":"array","items":{"type":"string"}},
+    "milestones":{"type":"array","items":{"type":"object","required":["name","status"],"properties":{"name":{"type":"string"},"status":{"enum":["pending","done","blocked"]},"due":{"type":"string"}}}},
+    "human_approved":{"type":"boolean"}
+  }
+}

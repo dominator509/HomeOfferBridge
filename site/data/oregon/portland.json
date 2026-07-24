@@ -1,0 +1,81 @@
+{
+  "city": "Portland",
+  "city_slug": "portland",
+  "metro": "the Portland metro",
+  "phone": "(509) 355-7455",
+  "phone_raw": "15093557455",
+  "review_count": 44,
+  "median_price": "$540,000",
+  "avg_dom": 32,
+  "cash_share": "19%",
+  "neighborhoods": "St. Johns, Montavilla, Lents, Sellwood, and the Alberta Arts district",
+  "landmark": "Mount Hood on the eastern skyline",
+  "outlying_area": "Gresham and Beaverton",
+  "local_market_longform": "<p>Portland is its own market, and a cash sale here works differently than the national talking points suggest. Homes in Portland currently trade around a median of $540,000 and take roughly 32 days to go under contract, with about 19% of area sales closing in cash. When you need certainty instead of a drawn-out listing \u2014 a firm number and a date you choose \u2014 that local pace is exactly why selling directly makes sense.</p><p>The housing stock shapes everything about condition here. Portland runs heavily to 1900s\u20131920s Old Portland foursquares and bungalows, plus mid-century ranches east of 82nd, and each era carries its own repair realities. That matters because we price the house in front of us rather than asking you to renovate it first \u2014 the things a traditional buyer's inspector flags are the same things we already expect and account for.</p><p>Local conditions are the other factor a generic buyer ignores. Around Portland, the issues we see most are knob-and-tube wiring, buried oil tanks common in inner-eastside yards, moss-covered roofs, and seismic vulnerability in unreinforced older homes. We've made offers on homes with every one of those problems, so none of it scares us off or kills the deal at the last minute.</p><p>We buy across the whole area \u2014 from close-in neighborhoods like St. Johns out to Gresham and Beaverton \u2014 and in Oregon the local economy anchored by Intel and the Silicon Forest, Nike, and a large creative and healthcare economy keeps demand real. Inherited homes, tired rentals, pre-foreclosure situations in Multnomah County, and houses that simply need more work than the owner wants to take on: those are the Portland sellers we help most.</p><p>Being a genuinely local buyer near Mount Hood on the eastern skyline also means our offer isn't a lowball pulled from a national algorithm that has never seen Portland. We know what a block in St. Johns, Montavilla, Lents, and Sellwood actually sells for, what the Portland metro buyers will and won't pay for, and how Multnomah County's title and closing process really works. That local read is why our sellers get a number they can trust and a closing that actually happens on the date we promised.</p>",
+  "situations": [
+    {
+      "title": "Facing foreclosure",
+      "body": "If you're behind on payments in Multnomah County, a fast cash sale can settle the loan before it hits your credit. We move on your timeline, not the bank's."
+    },
+    {
+      "title": "Relocating",
+      "body": "A job change shouldn't mean carrying two mortgages or managing a sale from a thousand miles away. Close on your schedule and move on."
+    },
+    {
+      "title": "Divorce or a major life change",
+      "body": "When the goal is simply to have the Portland house handled cleanly and split fairly, we make the sale the simple part."
+    },
+    {
+      "title": "Tired of two mortgages",
+      "body": "If you've already moved and the old Portland place is just draining you every month, we can take it off your hands quickly."
+    },
+    {
+      "title": "Inherited a house in Portland",
+      "body": "Settling an estate \u2014 often from out of state \u2014 is hard enough without a listing on top of it. We buy inherited Portland homes as-is, work alongside the Multnomah County probate process, and let you take what matters and leave the rest."
+    },
+    {
+      "title": "The house needs too much work",
+      "body": "Fire, water, foundation, or years of deferred repairs \u2014 we've bought all of it around Portland. No cleaning, no contractors, no staging."
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "Inherited my mom's place in St. Johns and couldn't face fixing it up. They closed in nine days and I never had to fly back out.",
+      "who": "Miguel F., Portland"
+    },
+    {
+      "quote": "Had a written offer already and they beat it. Straightforward, and the number they promised was the number at closing.",
+      "who": "Priya T., Gresham"
+    },
+    {
+      "quote": "Facing foreclosure and out of time. They moved fast, let me pick the date, and I walked away with cash in hand.",
+      "who": "Chris C., Portland"
+    }
+  ],
+  "faq": [
+    {
+      "q": "How fast can you close on my Portland house?",
+      "a": "As little as 7 days through a licensed Oregon title company, or any later date you choose. Sellers in Portland pick the timeline that fits their move."
+    },
+    {
+      "q": "Do I pay any fees or commissions?",
+      "a": "None. No agent commissions, no listing fees, and we cover standard closing costs. The number we agree on is what you receive."
+    },
+    {
+      "q": "Do I need to repair or clean the house first?",
+      "a": "No. We buy Portland homes in any condition \u2014 including the knob-and-tube wiring we see so often here. Take what you want and leave the rest."
+    },
+    {
+      "q": "How do you decide the offer amount?",
+      "a": "We look at recent comparable sales in your Portland neighborhood \u2014 places like St. Johns \u2014 the home's condition, and current the Portland metro demand, then make a fair cash offer you're free to accept or decline."
+    },
+    {
+      "q": "Is this a licensed, legitimate way to sell in Oregon?",
+      "a": "Yes. We are a direct buyer, not your agent or broker, and we put that in writing. Oregon requires wholesalers to register with the Oregon Real Estate Agency; we buy directly and disclose our role and intent on every contract."
+    },
+    {
+      "q": "Can you help with foreclosure, probate, or tenants?",
+      "a": "Often, yes. We regularly work with Multnomah County sellers facing foreclosure, probate, liens, or tenant issues, and we structure the sale around the situation."
+    }
+  ]
+}

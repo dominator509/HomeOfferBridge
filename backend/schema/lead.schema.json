@@ -1,0 +1,180 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Lead",
+  "type": "object",
+  "required": [
+    "lead_id",
+    "address",
+    "phone",
+    "city",
+    "state",
+    "source",
+    "consent",
+    "created_at",
+    "tier",
+    "status"
+  ],
+  "properties": {
+    "lead_id": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string",
+      "description": "state-slug/city-slug page path"
+    },
+    "consent": {
+      "type": "boolean"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "tier": {
+      "enum": [
+        "NEW",
+        "HOT",
+        "WARM",
+        "COLD"
+      ]
+    },
+    "score": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "status": {
+      "enum": [
+        "new",
+        "contacted",
+        "valuing",
+        "scheduled",
+        "inspected",
+        "negotiating",
+        "under_contract",
+        "closed",
+        "dead"
+      ]
+    },
+    "motivation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "timeline": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "property_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "offer_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "deal_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "audit": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "ts",
+          "event"
+        ],
+        "properties": {
+          "ts": {
+            "type": "string"
+          },
+          "event": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "client_ref": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "client-generated correlation id linking core lead + enrichment"
+    },
+    "self_rated_condition": {
+      "enum": [
+        "excellent",
+        "good",
+        "fair",
+        "poor",
+        "severe",
+        null
+      ],
+      "description": "seller self-report from form step 3"
+    },
+    "disclosed_issues": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "roof",
+          "foundation",
+          "plumbing_electrical",
+          "water_mold",
+          "hvac",
+          "termites_pests",
+          "fire",
+          "code_permits"
+        ]
+      }
+    },
+    "disclosure_text": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "disclosure_ack": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "seller checked the accuracy acknowledgement"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CityData",
+  "type": "object",
+  "required": ["city","city_slug","metro","review_count","median_price","avg_dom","cash_share","neighborhoods","landmark","outlying_area","local_market_longform","situations","testimonials","faq"],
+  "properties": {
+    "city": {"type":"string"},
+    "city_slug": {"type":"string","pattern":"^[a-z0-9-]+$"},
+    "metro": {"type":"string"},
+    "phone": {"type":"string"},
+    "phone_raw": {"type":"string"},
+    "review_count": {"type":"integer","minimum":1},
+    "homes_bought": {"type":"integer"},
+    "median_price": {"type":"string"},
+    "avg_dom": {"type":"integer","minimum":1},
+    "cash_share": {"type":"string"},
+    "neighborhoods": {"type":"string"},
+    "landmark": {"type":"string"},
+    "outlying_area": {"type":"string"},
+    "local_market_longform": {"type":"string","minLength":300,"description":"Genuinely unique, factual, city-specific content >=300 words. Anti-doorway requirement."},
+    "situations": {"type":"array","minItems":3,"maxItems":6,"items":{"type":"object","required":["title","body"],"properties":{"title":{"type":"string"},"body":{"type":"string"}}}},
+    "testimonials": {"type":"array","minItems":3,"items":{"type":"object","required":["quote","who"],"properties":{"quote":{"type":"string"},"who":{"type":"string"}}}},
+    "faq": {"type":"array","minItems":4,"items":{"type":"object","required":["q","a"],"properties":{"q":{"type":"string"},"a":{"type":"string"}}}}
+  }
+}

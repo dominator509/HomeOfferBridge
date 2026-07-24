@@ -1,0 +1,81 @@
+{
+  "city": "Saint Paul",
+  "city_slug": "saint-paul",
+  "metro": "the Twin Cities",
+  "phone": "(509) 355-7455",
+  "phone_raw": "15093557455",
+  "review_count": 32,
+  "median_price": "$300,000",
+  "avg_dom": 27,
+  "cash_share": "22%",
+  "neighborhoods": "the East Side, Frogtown, the North End, Dayton's Bluff, and the West Side",
+  "landmark": "the Minnesota State Capitol",
+  "outlying_area": "Maplewood and Roseville",
+  "local_market_longform": "<p>Saint Paul is its own market, and a cash sale here works differently than the national talking points suggest. Homes in Saint Paul currently trade around a median of $300,000 and take roughly 27 days to go under contract, with about 22% of area sales closing in cash. When you need certainty instead of a drawn-out listing \u2014 a firm number and a date you choose \u2014 that local pace is exactly why selling directly makes sense.</p><p>The housing stock shapes everything about condition here. Saint Paul runs heavily to late-1800s to 1920s Victorians, bungalows, and foursquares, plus post-war ranches, and each era carries its own repair realities. That matters because we price the house in front of us rather than asking you to renovate it first \u2014 the things a traditional buyer's inspector flags are the same things we already expect and account for.</p><p>Local conditions are the other factor a generic buyer ignores. Around Saint Paul, the issues we see most are severe freeze-thaw and frost-heave foundation movement, ice dams and roof damage, century-old plumbing and knob-and-tube wiring, and basement flooding. We've made offers on homes with every one of those problems, so none of it scares us off or kills the deal at the last minute.</p><p>We buy across the whole area \u2014 from close-in neighborhoods like the East Side out to Maplewood and Roseville \u2014 and in Minnesota the local economy anchored by state government, healthcare, higher education, and manufacturing (3M) keeps demand real. Inherited homes, tired rentals, pre-foreclosure situations in Ramsey County, and houses that simply need more work than the owner wants to take on: those are the Saint Paul sellers we help most.</p><p>Being a genuinely local buyer near the Minnesota State Capitol also means our offer isn't a lowball pulled from a national algorithm that has never seen Saint Paul. We know what a block in the East Side, Frogtown, the North End, and Dayton's Bluff actually sells for, what the Twin Cities buyers will and won't pay for, and how Ramsey County's title and closing process really works. That local read is why our sellers get a number they can trust and a closing that actually happens on the date we promised.</p>",
+  "situations": [
+    {
+      "title": "Facing foreclosure",
+      "body": "If you're behind on payments in Ramsey County, a fast cash sale can settle the loan before it hits your credit. We move on your timeline, not the bank's."
+    },
+    {
+      "title": "Inherited a house in Saint Paul",
+      "body": "Settling an estate \u2014 often from out of state \u2014 is hard enough without a listing on top of it. We buy inherited Saint Paul homes as-is, work alongside the Ramsey County probate process, and let you take what matters and leave the rest."
+    },
+    {
+      "title": "Done being a landlord",
+      "body": "Problem tenants, deferred maintenance, or a Saint Paul rental that stopped penciling out. We buy occupied properties and handle the situation so you can walk away clean."
+    },
+    {
+      "title": "Downsizing or aging in place",
+      "body": "When a longtime the East Side-area home has become too much to keep up, we make a fair offer and let you set a move-out date that isn't rushed."
+    },
+    {
+      "title": "Divorce or a major life change",
+      "body": "When the goal is simply to have the Saint Paul house handled cleanly and split fairly, we make the sale the simple part."
+    },
+    {
+      "title": "Relocating",
+      "body": "A job change shouldn't mean carrying two mortgages or managing a sale from a thousand miles away. Close on your schedule and move on."
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "Inherited my mom's place in Dayton's Bluff and couldn't face fixing it up. They closed in nine days and I never had to fly back out.",
+      "who": "Miguel H., Saint Paul"
+    },
+    {
+      "quote": "Had a written offer already and they beat it. Straightforward, and the number they promised was the number at closing.",
+      "who": "Frank C., Roseville"
+    },
+    {
+      "quote": "Facing foreclosure and out of time. They moved fast, let me pick the date, and I walked away with cash in hand.",
+      "who": "Priya J., Saint Paul"
+    }
+  ],
+  "faq": [
+    {
+      "q": "How fast can you close on my Saint Paul house?",
+      "a": "As little as 7 days through a licensed Minnesota title company, or any later date you choose. Sellers in Saint Paul pick the timeline that fits their move."
+    },
+    {
+      "q": "Do I pay any fees or commissions?",
+      "a": "None. No agent commissions, no listing fees, and we cover standard closing costs. The number we agree on is what you receive."
+    },
+    {
+      "q": "Do I need to repair or clean the house first?",
+      "a": "No. We buy Saint Paul homes in any condition \u2014 including the severe freeze-thaw and frost-heave foundation movement we see so often here. Take what you want and leave the rest."
+    },
+    {
+      "q": "How do you decide the offer amount?",
+      "a": "We look at recent comparable sales in your Saint Paul neighborhood \u2014 places like the East Side \u2014 the home's condition, and current the Twin Cities demand, then make a fair cash offer you're free to accept or decline."
+    },
+    {
+      "q": "Is this a licensed, legitimate way to sell in Minnesota?",
+      "a": "Yes. We are a direct buyer, not your agent or broker, and we put that in writing. Minnesota permits direct purchases; we disclose our role as a principal buyer and intent in writing."
+    },
+    {
+      "q": "Can you help with foreclosure, probate, or tenants?",
+      "a": "Often, yes. We regularly work with Ramsey County sellers facing foreclosure, probate, liens, or tenant issues, and we structure the sale around the situation."
+    }
+  ]
+}

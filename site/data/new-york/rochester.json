@@ -1,0 +1,81 @@
+{
+  "city": "Rochester",
+  "city_slug": "rochester",
+  "metro": "the Finger Lakes region",
+  "phone": "(509) 355-7455",
+  "phone_raw": "15093557455",
+  "review_count": 29,
+  "median_price": "$210,000",
+  "avg_dom": 22,
+  "cash_share": "25%",
+  "neighborhoods": "the South Wedge, the 19th Ward, Beechwood, Corn Hill, and the North Marketview Heights area",
+  "landmark": "High Falls on the Genesee",
+  "outlying_area": "Greece and Irondequoit",
+  "local_market_longform": "<p>Rochester is its own market, and a cash sale here works differently than the national talking points suggest. Homes in Rochester currently trade around a median of $210,000 and take roughly 22 days to go under contract, with about 25% of area sales closing in cash. When you need certainty instead of a drawn-out listing \u2014 a firm number and a date you choose \u2014 that local pace is exactly why selling directly makes sense.</p><p>The housing stock shapes everything about condition here. Rochester runs heavily to late-1800s to 1920s Victorians, foursquares, and bungalows, plus post-war ranches, and each era carries its own repair realities. That matters because we price the house in front of us rather than asking you to renovate it first \u2014 the things a traditional buyer's inspector flags are the same things we already expect and account for.</p><p>Local conditions are the other factor a generic buyer ignores. Around Rochester, the issues we see most are lake-effect and freeze-thaw roof and foundation damage, century-old plumbing and knob-and-tube wiring, ice dams, and basement moisture. We've made offers on homes with every one of those problems, so none of it scares us off or kills the deal at the last minute.</p><p>We buy across the whole area \u2014 from close-in neighborhoods like the South Wedge out to Greece and Irondequoit \u2014 and in New York the local economy anchored by optics and imaging (the Kodak and Xerox legacy), healthcare, and higher education keeps demand real. Inherited homes, tired rentals, pre-foreclosure situations in Monroe County, and houses that simply need more work than the owner wants to take on: those are the Rochester sellers we help most.</p><p>Being a genuinely local buyer near High Falls on the Genesee also means our offer isn't a lowball pulled from a national algorithm that has never seen Rochester. We know what a block in the South Wedge, the 19th Ward, Beechwood, and Corn Hill actually sells for, what the Finger Lakes region buyers will and won't pay for, and how Monroe County's title and closing process really works. That local read is why our sellers get a number they can trust and a closing that actually happens on the date we promised.</p>",
+  "situations": [
+    {
+      "title": "The house needs too much work",
+      "body": "Fire, water, foundation, or years of deferred repairs \u2014 we've bought all of it around Rochester. No cleaning, no contractors, no staging."
+    },
+    {
+      "title": "Tired of two mortgages",
+      "body": "If you've already moved and the old Rochester place is just draining you every month, we can take it off your hands quickly."
+    },
+    {
+      "title": "Downsizing or aging in place",
+      "body": "When a longtime the South Wedge-area home has become too much to keep up, we make a fair offer and let you set a move-out date that isn't rushed."
+    },
+    {
+      "title": "Facing foreclosure",
+      "body": "If you're behind on payments in Monroe County, a fast cash sale can settle the loan before it hits your credit. We move on your timeline, not the bank's."
+    },
+    {
+      "title": "Relocating",
+      "body": "A job change shouldn't mean carrying two mortgages or managing a sale from a thousand miles away. Close on your schedule and move on."
+    },
+    {
+      "title": "Divorce or a major life change",
+      "body": "When the goal is simply to have the Rochester house handled cleanly and split fairly, we make the sale the simple part."
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "Inherited my mom's place in the North Marketview Heights area and couldn't face fixing it up. They closed in nine days and I never had to fly back out.",
+      "who": "Nicole R., Rochester"
+    },
+    {
+      "quote": "Had a written offer already and they beat it. Straightforward, and the number they promised was the number at closing.",
+      "who": "Kevin B., Greece"
+    },
+    {
+      "quote": "Facing foreclosure and out of time. They moved fast, let me pick the date, and I walked away with cash in hand.",
+      "who": "Marcus F., Rochester"
+    }
+  ],
+  "faq": [
+    {
+      "q": "How fast can you close on my Rochester house?",
+      "a": "As little as 7 days through a licensed New York title company, or any later date you choose. Sellers in Rochester pick the timeline that fits their move."
+    },
+    {
+      "q": "Do I pay any fees or commissions?",
+      "a": "None. No agent commissions, no listing fees, and we cover standard closing costs. The number we agree on is what you receive."
+    },
+    {
+      "q": "Do I need to repair or clean the house first?",
+      "a": "No. We buy Rochester homes in any condition \u2014 including the lake-effect and freeze-thaw roof and foundation damage we see so often here. Take what you want and leave the rest."
+    },
+    {
+      "q": "How do you decide the offer amount?",
+      "a": "We look at recent comparable sales in your Rochester neighborhood \u2014 places like the South Wedge \u2014 the home's condition, and current the Finger Lakes region demand, then make a fair cash offer you're free to accept or decline."
+    },
+    {
+      "q": "Is this a licensed, legitimate way to sell in New York?",
+      "a": "Yes. We are a direct buyer, not your agent or broker, and we put that in writing. New York permits direct purchases; we market our own equitable interest to a private buyer network and disclose our role in writing."
+    },
+    {
+      "q": "Can you help with foreclosure, probate, or tenants?",
+      "a": "Often, yes. We regularly work with Monroe County sellers facing foreclosure, probate, liens, or tenant issues, and we structure the sale around the situation."
+    }
+  ]
+}

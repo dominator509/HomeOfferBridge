@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sell Your House Fast in {{STATE}} — Cash Offers Statewide | {{BRAND}}</title>
+<meta name="description" content="We buy houses for cash across {{STATE}}. Fair no-obligation offers in 24 hours, any condition, no fees. Find your city and get started." />
+<link rel="canonical" href="https://{{DOMAIN}}/{{STATE_SLUG}}/" />
+<meta name="robots" content="index,follow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+<div class="topbar"><div class="wrap"><span><b>{{BRAND}}</b> · Cash home buyers across {{STATE}}</span><a class="call" href="tel:{{PHONE_RAW}}">Call {{PHONE}}</a></div></div>
+<nav class="main"><div class="wrap"><a class="brand" href="/"><span class="dot"></span>{{BRAND}}</a><a class="navcta" href="/{{STATE_SLUG}}/{{FIRST_CITY_SLUG}}/">Get my cash offer</a></div></nav>
+<section class="hero"><div class="wrap" style="grid-template-columns:1fr;text-align:center">
+  <div>
+    <span class="eyebrow" style="justify-content:center">Cash home buyer · {{STATE}}</span>
+    <h1 style="max-width:16ch;margin:0 auto 14px">Sell your {{STATE}} house fast for cash.</h1>
+    <p class="sub" style="max-width:46ch;margin:0 auto 22px">No repairs, no fees, no waiting. Pick your city below to get a fair, no-obligation cash offer in 24 hours.</p>
+  </div>
+</div></section>
+<div class="strip"><div class="wrap">
+  <div><div class="n">{{HOMES_BOUGHT}}+</div><div class="l">Homes purchased</div></div>
+  <div><div class="n">7&nbsp;days</div><div class="l">Fastest close</div></div>
+  <div><div class="n">$0</div><div class="l">Fees or commissions</div></div>
+  <div><div class="n">4.9★</div><div class="l">Seller rated</div></div>
+</div></div>
+<section class="pad"><div class="wrap">
+  <div class="kicker">Choose your city</div>
+  <h2>We buy houses across {{STATE}}</h2>
+  <p class="lead">Select your market for local pricing, timelines, and a cash offer tuned to your area.</p>
+  <div class="citylist">{{CITY_LINKS}}</div>
+</div></section>
+<footer><div class="wrap">
+  <div><div class="brand" style="font-family:'Fraunces',serif;font-size:1.2rem;margin-bottom:10px">{{BRAND}}</div>
+  <p style="max-width:38ch;margin:0">We buy houses for cash across {{STATE}}. Any condition, any situation.</p>
+  <p style="margin-top:14px"><a href="tel:{{PHONE_RAW}}" style="color:var(--gold);font-weight:700">{{PHONE}}</a></p></div>
+  <div><b style="color:#fff">Company</b><a href="/">Home</a><a href="/how-it-works/">How it works</a><a href="/faq/">FAQ</a><a href="/privacy-policy/">Privacy Policy</a><a href="/terms-of-service/">Terms of Service</a></div>
+  <div><b style="color:#fff">Coverage</b><a href="/sitemap.xml">All service areas</a></div>
+  <div class="disc" style="grid-column:1/-1">© <span id="yr"></span> {{BRAND}}. Real estate investment company; not your agent or broker. Offers are non-obligation.<br />Mailing address: {{MAILING_ADDRESS}}</div>
+</div></footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body></html>

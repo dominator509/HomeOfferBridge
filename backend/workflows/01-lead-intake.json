@@ -1,0 +1,404 @@
+{
+  "name": "01 · Lead Intake (DeepSeek, sub-60s)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lead-intake",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "wh",
+      "name": "Lead Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        400
+      ],
+      "webhookId": "lead-intake"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ ($json.body||$json).event || 'lead' }}",
+              "value2": "enrich"
+            }
+          ]
+        }
+      },
+      "id": "router",
+      "name": "Event Router",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        420,
+        400
+      ],
+      "notes": "enrich = condition + disclosures from form step 3; upsert by client_ref. lead = core capture."
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "table": "leads",
+        "updateKey": "client_ref",
+        "columns": "self_rated_condition,disclosed_issues,disclosure_text,disclosure_ack"
+      },
+      "id": "enrich",
+      "name": "Upsert Disclosures (by client_ref)",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [
+        680,
+        560
+      ],
+      "notes": "Correlate to the core lead via client_ref; then re-run valuation with condition known.",
+      "credentials": {
+        "postgres": {
+          "name": "HOB CRM (Postgres)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.VALUATION_WEBHOOK }}",
+        "method": "POST",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.body || $json) }}",
+        "options": {}
+      },
+      "id": "reval",
+      "name": "→ Re-run Valuation (02)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        900,
+        560
+      ],
+      "notes": "Condition now known → tighter repair band + range."
+    },
+    {
+      "parameters": {
+        "jsCode": "const b=$input.first().json.body||$input.first().json;const digits=(b.phone||'').replace(/\\D/g,'');const valid=(b.address||'').trim().length>=4&&digits.length>=7;const lead={lead_id:'ld_'+Date.now().toString(36)+Math.random().toString(36).slice(2,7),client_ref:b.client_ref||null,address:(b.address||'').trim(),phone:digits,city:b.city||'',state:b.state||'',source:b.source||'',consent:b.consent===true,created_at:new Date().toISOString(),tier:'NEW',status:'new'};return [{json:{...lead,valid}}];"
+      },
+      "id": "normalize",
+      "name": "Normalize + Validate",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.valid }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "if-valid",
+      "name": "Valid Lead?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        900,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "table": "leads",
+        "columns": "lead_id,client_ref,name,email,address,phone,city,state,source,consent,created_at,tier,status"
+      },
+      "id": "crm",
+      "name": "CRM · Insert Lead",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        260
+      ],
+      "notes": "Swap for REsimpli/GoHighLevel/HubSpot; payload matches backend/schema/lead.schema.json",
+      "credentials": {
+        "postgres": {
+          "name": "HOB CRM (Postgres)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.consent }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "if-consent",
+      "name": "Has SMS Consent?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prefix Assembler (TOKENKILLER) — S0..PAD frozen, S3 volatile last.\nconst PREFIX = \"S0 You are the Instant Responder for a cash home-buyer. Reply within 60s. Never quote price. Never impersonate a human; disclose you are automated if asked. TCPA: include STOP. Concise reasoning.\\nS1 OUTPUT ONLY JSON: {\\\"sms_body\\\":\\\"<=320 chars, no links\\\",\\\"send\\\":bool,\\\"reason\\\":str}. If address invalid/spam set send=false reason=invalid_lead.\\nPAD ---- alignment pad, freeze after 64-token calc ----\";\nconst src = $input.first().json;\nconst v = { address: src.address, city: src.city, state: src.state, consent: src.consent === true };\nreturn [{ json: { body: {\n  model: $env.DEEPSEEK_MODEL,\n  temperature: 0,\n  max_tokens: 400,\n  messages: [\n    { role: 'system', content: PREFIX },\n    { role: 'user',   content: JSON.stringify(v) }\n  ]\n}, _prefix_bytes: PREFIX.length } }];"
+      },
+      "id": "assembler",
+      "name": "Prefix Assembler (TOKENKILLER)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1560,
+        200
+      ],
+      "notes": "PREFIX is a const literal → byte-identical every call → full-prefix cache hit."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.DEEPSEEK_BASE }}/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.DEEPSEEK_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.body) }}",
+        "options": {}
+      },
+      "id": "ds-http",
+      "name": "DeepSeek · Flash-Thinking",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1780,
+        200
+      ],
+      "notes": "OpenAI-compatible. Prefix (system) cached on DeepSeek disk; only S3 user msg misses."
+    },
+    {
+      "parameters": {
+        "jsCode": "const r = $input.first().json;\nconst u = r.usage || {};\nconst hit = u.prompt_cache_hit_tokens || 0, miss = u.prompt_cache_miss_tokens || 0;\nconst ratio = (hit+miss) ? hit/(hit+miss) : 0;\nlet t = (r.choices && r.choices[0] && r.choices[0].message && r.choices[0].message.content) || '{}';\nlet out; try { out = JSON.parse(t.replace(/```json|```/g,'').trim()); } catch(e){ out = { _parse_error:true }; }\nout._cache = { hit, miss, ratio: +ratio.toFixed(4), ok: ratio >= 0.97 };\nif(!out._cache.ok) console.warn('TOKENKILLER: cache ratio below floor', out._cache);\nreturn [{ json: out }];"
+      },
+      "id": "ledger",
+      "name": "Cache Ledger (NukeGuard)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2000,
+        200
+      ],
+      "notes": "Reads DeepSeek usage; asserts >=0.97; append rows to cache_ledger; CI replay gate."
+    },
+    {
+      "parameters": {
+        "resource": "sms",
+        "operation": "send",
+        "from": "={{ $env.TWILIO_FROM }}",
+        "to": "={{ $('Normalize + Validate').first().json.phone }}",
+        "message": "={{ $json.sms_body }}"
+      },
+      "id": "twilio",
+      "name": "Twilio · Send SMS",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        2220,
+        200
+      ],
+      "notes": "Reached only when consent=true and agent set send=true."
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.VALUATION_WEBHOOK }}",
+        "method": "POST",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($('Normalize + Validate').first().json) }}",
+        "options": {}
+      },
+      "id": "kick-val",
+      "name": "→ Trigger Valuation (02)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1340,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{json:{dropped:true,reason:'invalid_lead'}}];"
+      },
+      "id": "drop",
+      "name": "Drop Invalid",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        440
+      ]
+    }
+  ],
+  "connections": {
+    "Lead Webhook": {
+      "main": [
+        [
+          {
+            "node": "Event Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Event Router": {
+      "main": [
+        [
+          {
+            "node": "Upsert Disclosures (by client_ref)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Normalize + Validate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upsert Disclosures (by client_ref)": {
+      "main": [
+        [
+          {
+            "node": "→ Re-run Valuation (02)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize + Validate": {
+      "main": [
+        [
+          {
+            "node": "Valid Lead?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Valid Lead?": {
+      "main": [
+        [
+          {
+            "node": "CRM · Insert Lead",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "→ Trigger Valuation (02)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Drop Invalid",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CRM · Insert Lead": {
+      "main": [
+        [
+          {
+            "node": "Has SMS Consent?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has SMS Consent?": {
+      "main": [
+        [
+          {
+            "node": "Prefix Assembler (TOKENKILLER)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Prefix Assembler (TOKENKILLER)": {
+      "main": [
+        [
+          {
+            "node": "DeepSeek · Flash-Thinking",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DeepSeek · Flash-Thinking": {
+      "main": [
+        [
+          {
+            "node": "Cache Ledger (NukeGuard)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cache Ledger (NukeGuard)": {
+      "main": [
+        [
+          {
+            "node": "Twilio · Send SMS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "acb-ds-01"
+}

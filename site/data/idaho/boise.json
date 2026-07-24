@@ -1,0 +1,81 @@
+{
+  "city": "Boise",
+  "city_slug": "boise",
+  "metro": "the Treasure Valley",
+  "phone": "(509) 355-7455",
+  "phone_raw": "15093557455",
+  "review_count": 31,
+  "median_price": "$520,000",
+  "avg_dom": 31,
+  "cash_share": "23%",
+  "neighborhoods": "the North End, the Bench, Vista, downtown Boise, and Southeast Boise",
+  "landmark": "the Boise Foothills",
+  "outlying_area": "Meridian and Nampa",
+  "local_market_longform": "<p>Boise is its own market, and a cash sale here works differently than the national talking points suggest. Homes in Boise currently trade around a median of $520,000 and take roughly 31 days to go under contract, with about 23% of area sales closing in cash. When you need certainty instead of a drawn-out listing \u2014 a firm number and a date you choose \u2014 that local pace is exactly why selling directly makes sense.</p><p>The housing stock shapes everything about condition here. Boise runs heavily to 1900s\u20131930s bungalows in the North End and Bench, post-war ranches, and heavy 2000s\u20132020s tract growth, and each era carries its own repair realities. That matters because we price the house in front of us rather than asking you to renovate it first \u2014 the things a traditional buyer's inspector flags are the same things we already expect and account for.</p><p>Local conditions are the other factor a generic buyer ignores. Around Boise, the issues we see most are high-desert freeze-thaw cracking, wildfire risk in the foothills, aging irrigation and crawl-space grading, and older knob-and-tube in the North End. We've made offers on homes with every one of those problems, so none of it scares us off or kills the deal at the last minute.</p><p>We buy across the whole area \u2014 from close-in neighborhoods like the North End out to Meridian and Nampa \u2014 and in Idaho the local economy anchored by Micron Technology, HP, healthcare, and rapid California and Pacific-Northwest in-migration keeps demand real. Inherited homes, tired rentals, pre-foreclosure situations in Ada County, and houses that simply need more work than the owner wants to take on: those are the Boise sellers we help most.</p><p>Being a genuinely local buyer near the Boise Foothills also means our offer isn't a lowball pulled from a national algorithm that has never seen Boise. We know what a block in the North End, the Bench, Vista, and downtown Boise actually sells for, what the Treasure Valley buyers will and won't pay for, and how Ada County's title and closing process really works. That local read is why our sellers get a number they can trust and a closing that actually happens on the date we promised.</p>",
+  "situations": [
+    {
+      "title": "Facing foreclosure",
+      "body": "If you're behind on payments in Ada County, a fast cash sale can settle the loan before it hits your credit. We move on your timeline, not the bank's."
+    },
+    {
+      "title": "Done being a landlord",
+      "body": "Problem tenants, deferred maintenance, or a Boise rental that stopped penciling out. We buy occupied properties and handle the situation so you can walk away clean."
+    },
+    {
+      "title": "Tired of two mortgages",
+      "body": "If you've already moved and the old Boise place is just draining you every month, we can take it off your hands quickly."
+    },
+    {
+      "title": "The house needs too much work",
+      "body": "Fire, water, foundation, or years of deferred repairs \u2014 we've bought all of it around Boise. No cleaning, no contractors, no staging."
+    },
+    {
+      "title": "Inherited a house in Boise",
+      "body": "Settling an estate \u2014 often from out of state \u2014 is hard enough without a listing on top of it. We buy inherited Boise homes as-is, work alongside the Ada County probate process, and let you take what matters and leave the rest."
+    },
+    {
+      "title": "Downsizing or aging in place",
+      "body": "When a longtime the North End-area home has become too much to keep up, we make a fair offer and let you set a move-out date that isn't rushed."
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "Inherited my mom's place in Vista and couldn't face fixing it up. They closed in nine days and I never had to fly back out.",
+      "who": "Grace J., Boise"
+    },
+    {
+      "quote": "Had a written offer already and they beat it. Straightforward, and the number they promised was the number at closing.",
+      "who": "Denise D., Meridian"
+    },
+    {
+      "quote": "Facing foreclosure and out of time. They moved fast, let me pick the date, and I walked away with cash in hand.",
+      "who": "James M., Boise"
+    }
+  ],
+  "faq": [
+    {
+      "q": "How fast can you close on my Boise house?",
+      "a": "As little as 7 days through a licensed Idaho title company, or any later date you choose. Sellers in Boise pick the timeline that fits their move."
+    },
+    {
+      "q": "Do I pay any fees or commissions?",
+      "a": "None. No agent commissions, no listing fees, and we cover standard closing costs. The number we agree on is what you receive."
+    },
+    {
+      "q": "Do I need to repair or clean the house first?",
+      "a": "No. We buy Boise homes in any condition \u2014 including the high-desert freeze-thaw cracking we see so often here. Take what you want and leave the rest."
+    },
+    {
+      "q": "How do you decide the offer amount?",
+      "a": "We look at recent comparable sales in your Boise neighborhood \u2014 places like the North End \u2014 the home's condition, and current the Treasure Valley demand, then make a fair cash offer you're free to accept or decline."
+    },
+    {
+      "q": "Is this a licensed, legitimate way to sell in Idaho?",
+      "a": "Yes. We are a direct buyer, not your agent or broker, and we put that in writing. Idaho has no wholesaling-specific statute; we purchase directly and disclose our role and intent."
+    },
+    {
+      "q": "Can you help with foreclosure, probate, or tenants?",
+      "a": "Often, yes. We regularly work with Ada County sellers facing foreclosure, probate, liens, or tenant issues, and we structure the sale around the situation."
+    }
+  ]
+}

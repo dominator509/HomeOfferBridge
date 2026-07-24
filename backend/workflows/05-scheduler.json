@@ -1,0 +1,183 @@
+{
+  "name": "05 \u00b7 Voice Assist + Scheduler (DeepSeek)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "voice-assist",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "wh",
+      "name": "Scheduler Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "voice-assist"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prefix Assembler (TOKENKILLER) \u2014 S0..PAD frozen, S3 volatile last.\nconst PREFIX = \"S0 You are the Voice/Closer-Assist. Disclose automated at call start. Never state or negotiate price. No pressure; offer human callback. Respect calling hours + DNC. Concise reasoning.\\nS1 Confirm identity/address/condition/timeline; book inspection or warm-transfer. OUTPUT ONLY JSON: {outcome,inspection_slot,condition_notes,timeline,handoff_summary}.\\nPAD ---- alignment pad ----\";\nconst src = $input.first().json;\nconst v = { address: src.address, city: src.city, timeline: src.timeline, condition_notes: src.condition_notes };\nreturn [{ json: { body: {\n  model: $env.DEEPSEEK_MODEL,\n  temperature: 0,\n  max_tokens: 500,\n  messages: [\n    { role: 'system', content: PREFIX },\n    { role: 'user',   content: JSON.stringify(v) }\n  ]\n}, _prefix_bytes: PREFIX.length } }];"
+      },
+      "id": "assembler",
+      "name": "Prefix Assembler (TOKENKILLER)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ],
+      "notes": "PREFIX is a const literal \u2192 byte-identical every call \u2192 full-prefix cache hit."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.DEEPSEEK_BASE }}/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.DEEPSEEK_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.body) }}",
+        "options": {}
+      },
+      "id": "ds-http",
+      "name": "DeepSeek \u00b7 Flash-Thinking",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        680,
+        300
+      ],
+      "notes": "OpenAI-compatible. Prefix (system) cached on DeepSeek disk; only S3 user msg misses."
+    },
+    {
+      "parameters": {
+        "jsCode": "const r = $input.first().json;\nconst u = r.usage || {};\nconst hit = u.prompt_cache_hit_tokens || 0, miss = u.prompt_cache_miss_tokens || 0;\nconst ratio = (hit+miss) ? hit/(hit+miss) : 0;\nlet t = (r.choices && r.choices[0] && r.choices[0].message && r.choices[0].message.content) || '{}';\nlet out; try { out = JSON.parse(t.replace(/```json|```/g,'').trim()); } catch(e){ out = { _parse_error:true }; }\nout._cache = { hit, miss, ratio: +ratio.toFixed(4), ok: ratio >= 0.97 };\nif(!out._cache.ok) console.warn('TOKENKILLER: cache ratio below floor', out._cache);\nreturn [{ json: out }];"
+      },
+      "id": "ledger",
+      "name": "Cache Ledger (NukeGuard)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        300
+      ],
+      "notes": "Reads DeepSeek usage; asserts >=0.97; append rows to cache_ledger; CI replay gate."
+    },
+    {
+      "parameters": {
+        "resource": "event",
+        "operation": "create",
+        "calendar": "={{ $env.CLOSER_CALENDAR }}",
+        "start": "={{ $json.inspection_slot }}",
+        "end": "={{ $json.inspection_slot }}",
+        "additionalFields": {
+          "summary": "Property inspection \u2014 {{ $('Scheduler Webhook').first().json.address }}",
+          "description": "={{ $json.handoff_summary }}"
+        }
+      },
+      "id": "cal",
+      "name": "Create Calendar Event",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        300
+      ],
+      "notes": "HUMAN STEP #1 (physical inspection) is scheduled here."
+    },
+    {
+      "parameters": {
+        "resource": "sms",
+        "operation": "send",
+        "from": "={{ $env.TWILIO_FROM }}",
+        "to": "={{ $('Scheduler Webhook').first().json.phone }}",
+        "message": "You're booked! A specialist will meet you to finalize your cash offer. Reply to reschedule."
+      },
+      "id": "confirm",
+      "name": "Confirm to Seller",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Scheduler Webhook": {
+      "main": [
+        [
+          {
+            "node": "Prefix Assembler (TOKENKILLER)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prefix Assembler (TOKENKILLER)": {
+      "main": [
+        [
+          {
+            "node": "DeepSeek \u00b7 Flash-Thinking",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DeepSeek \u00b7 Flash-Thinking": {
+      "main": [
+        [
+          {
+            "node": "Cache Ledger (NukeGuard)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cache Ledger (NukeGuard)": {
+      "main": [
+        [
+          {
+            "node": "Create Calendar Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Calendar Event": {
+      "main": [
+        [
+          {
+            "node": "Confirm to Seller",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "acb-ds-05"
+}

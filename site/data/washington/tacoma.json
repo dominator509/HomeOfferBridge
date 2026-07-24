@@ -1,0 +1,81 @@
+{
+  "city": "Tacoma",
+  "city_slug": "tacoma",
+  "metro": "the South Sound",
+  "phone": "(509) 355-7455",
+  "phone_raw": "15093557455",
+  "review_count": 48,
+  "median_price": "$525,000",
+  "avg_dom": 21,
+  "cash_share": "23%",
+  "neighborhoods": "Hilltop, the North End, South Tacoma, Lincoln District, and Northeast Tacoma",
+  "landmark": "Mount Rainier on the skyline",
+  "outlying_area": "Puyallup and Lakewood",
+  "local_market_longform": "<p>Tacoma is its own market, and a cash sale here works differently than the national talking points suggest. Homes in Tacoma currently trade around a median of $525,000 and take roughly 21 days to go under contract, with about 23% of area sales closing in cash. When you need certainty instead of a drawn-out listing \u2014 a firm number and a date you choose \u2014 that local pace is exactly why selling directly makes sense.</p><p>The housing stock shapes everything about condition here. Tacoma runs heavily to early-1900s Craftsman and Victorian stock, wartime cottages, and mid-century ranches, and each era carries its own repair realities. That matters because we price the house in front of us rather than asking you to renovate it first \u2014 the things a traditional buyer's inspector flags are the same things we already expect and account for.</p><p>Local conditions are the other factor a generic buyer ignores. Around Tacoma, the issues we see most are knob-and-tube and ungrounded wiring, buried oil tanks, failing cedar and composition roofs, and liquefaction risk in the Tideflats and low-lying areas. We've made offers on homes with every one of those problems, so none of it scares us off or kills the deal at the last minute.</p><p>We buy across the whole area \u2014 from close-in neighborhoods like Hilltop out to Puyallup and Lakewood \u2014 and in Washington the local economy anchored by the Port of Tacoma, Joint Base Lewis-McChord, and Seattle-overflow commuters keeps demand real. Inherited homes, tired rentals, pre-foreclosure situations in Pierce County, and houses that simply need more work than the owner wants to take on: those are the Tacoma sellers we help most.</p><p>Being a genuinely local buyer near Mount Rainier on the skyline also means our offer isn't a lowball pulled from a national algorithm that has never seen Tacoma. We know what a block in Hilltop, the North End, South Tacoma, and Lincoln District actually sells for, what the South Sound buyers will and won't pay for, and how Pierce County's title and closing process really works. That local read is why our sellers get a number they can trust and a closing that actually happens on the date we promised.</p>",
+  "situations": [
+    {
+      "title": "Facing foreclosure",
+      "body": "If you're behind on payments in Pierce County, a fast cash sale can settle the loan before it hits your credit. We move on your timeline, not the bank's."
+    },
+    {
+      "title": "Relocating",
+      "body": "A job change shouldn't mean carrying two mortgages or managing a sale from a thousand miles away. Close on your schedule and move on."
+    },
+    {
+      "title": "Downsizing or aging in place",
+      "body": "When a longtime Hilltop-area home has become too much to keep up, we make a fair offer and let you set a move-out date that isn't rushed."
+    },
+    {
+      "title": "Done being a landlord",
+      "body": "Problem tenants, deferred maintenance, or a Tacoma rental that stopped penciling out. We buy occupied properties and handle the situation so you can walk away clean."
+    },
+    {
+      "title": "The house needs too much work",
+      "body": "Fire, water, foundation, or years of deferred repairs \u2014 we've bought all of it around Tacoma. No cleaning, no contractors, no staging."
+    },
+    {
+      "title": "Inherited a house in Tacoma",
+      "body": "Settling an estate \u2014 often from out of state \u2014 is hard enough without a listing on top of it. We buy inherited Tacoma homes as-is, work alongside the Pierce County probate process, and let you take what matters and leave the rest."
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "Inherited my mom's place in Lincoln District and couldn't face fixing it up. They closed in nine days and I never had to fly back out.",
+      "who": "Kevin M., Tacoma"
+    },
+    {
+      "quote": "Had a written offer already and they beat it. Straightforward, and the number they promised was the number at closing.",
+      "who": "Yolanda J., Puyallup"
+    },
+    {
+      "quote": "Facing foreclosure and out of time. They moved fast, let me pick the date, and I walked away with cash in hand.",
+      "who": "Sharon H., Tacoma"
+    }
+  ],
+  "faq": [
+    {
+      "q": "How fast can you close on my Tacoma house?",
+      "a": "As little as 7 days through a licensed Washington title company, or any later date you choose. Sellers in Tacoma pick the timeline that fits their move."
+    },
+    {
+      "q": "Do I pay any fees or commissions?",
+      "a": "None. No agent commissions, no listing fees, and we cover standard closing costs. The number we agree on is what you receive."
+    },
+    {
+      "q": "Do I need to repair or clean the house first?",
+      "a": "No. We buy Tacoma homes in any condition \u2014 including the knob-and-tube and ungrounded wiring we see so often here. Take what you want and leave the rest."
+    },
+    {
+      "q": "How do you decide the offer amount?",
+      "a": "We look at recent comparable sales in your Tacoma neighborhood \u2014 places like Hilltop \u2014 the home's condition, and current the South Sound demand, then make a fair cash offer you're free to accept or decline."
+    },
+    {
+      "q": "Is this a licensed, legitimate way to sell in Washington?",
+      "a": "Yes. We are a direct buyer, not your agent or broker, and we put that in writing. Washington has no wholesaling-specific statute; we operate as a direct buyer and disclose our interest in writing."
+    },
+    {
+      "q": "Can you help with foreclosure, probate, or tenants?",
+      "a": "Often, yes. We regularly work with Pierce County sellers facing foreclosure, probate, liens, or tenant issues, and we structure the sale around the situation."
+    }
+  ]
+}

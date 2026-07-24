@@ -1,0 +1,284 @@
+{
+  "name": "06 \u00b7 Contract + Title (DeepSeek)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "contract",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "wh",
+      "name": "Deal Agreed Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "contract",
+      "notes": "Fired by human closer after post-inspection agreement (Human Step #2)."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prefix Assembler (TOKENKILLER) \u2014 S0..PAD frozen, S3 volatile last.\nconst PREFIX = \"S0 You are the Contract/Title Coordinator. A human approves every contract before it reaches a seller (needs_human=true always). Never alter agreed terms. No legal advice; flag legal/title issues. Concise reasoning.\\nS1 action=draft_contract. OUTPUT ONLY JSON: {action,documents[],title_company,milestones[],needs_human,human_note}.\\nPAD ---- alignment pad ----\";\nconst src = $input.first().json;\nconst v = { deal: src.deal || src };\nreturn [{ json: { body: {\n  model: $env.DEEPSEEK_MODEL,\n  temperature: 0,\n  max_tokens: 900,\n  messages: [\n    { role: 'system', content: PREFIX },\n    { role: 'user',   content: JSON.stringify(v) }\n  ]\n}, _prefix_bytes: PREFIX.length } }];"
+      },
+      "id": "assembler",
+      "name": "Prefix Assembler (TOKENKILLER)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ],
+      "notes": "PREFIX is a const literal \u2192 byte-identical every call \u2192 full-prefix cache hit."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.DEEPSEEK_BASE }}/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.DEEPSEEK_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.body) }}",
+        "options": {}
+      },
+      "id": "ds-http",
+      "name": "DeepSeek \u00b7 Flash-Thinking",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        680,
+        300
+      ],
+      "notes": "OpenAI-compatible. Prefix (system) cached on DeepSeek disk; only S3 user msg misses."
+    },
+    {
+      "parameters": {
+        "jsCode": "const r = $input.first().json;\nconst u = r.usage || {};\nconst hit = u.prompt_cache_hit_tokens || 0, miss = u.prompt_cache_miss_tokens || 0;\nconst ratio = (hit+miss) ? hit/(hit+miss) : 0;\nlet t = (r.choices && r.choices[0] && r.choices[0].message && r.choices[0].message.content) || '{}';\nlet out; try { out = JSON.parse(t.replace(/```json|```/g,'').trim()); } catch(e){ out = { _parse_error:true }; }\nout._cache = { hit, miss, ratio: +ratio.toFixed(4), ok: ratio >= 0.97 };\nif(!out._cache.ok) console.warn('TOKENKILLER: cache ratio below floor', out._cache);\nreturn [{ json: out }];"
+      },
+      "id": "ledger",
+      "name": "Cache Ledger (NukeGuard)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        300
+      ],
+      "notes": "Reads DeepSeek usage; asserts >=0.97; append rows to cache_ledger; CI replay gate."
+    },
+    {
+      "parameters": {
+        "fromEmail": "deals@{{ $env.DOMAIN }}",
+        "toEmail": "={{ $env.CLOSER_ALERT }}",
+        "subject": "REVIEW before send \u2014 contract",
+        "text": "Human review required. Draft + flags: {{ JSON.stringify($json) }}"
+      },
+      "id": "gate",
+      "name": "HUMAN REVIEW GATE",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        300
+      ],
+      "notes": "Hard gate: no contract reaches the seller without human approval."
+    },
+    {
+      "parameters": {
+        "formTitle": "Approve contract?",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Decision",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "approve"
+                  },
+                  {
+                    "option": "edit"
+                  },
+                  {
+                    "option": "reject"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "id": "approval",
+      "name": "Wait for Approval",
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.Decision }}",
+              "value2": "approve"
+            }
+          ]
+        }
+      },
+      "id": "if-ok",
+      "name": "Approved?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1560,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.ESIGN_API_URL }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "esign",
+      "name": "Send e-Sign",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1780,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "deals@{{ $env.DOMAIN }}",
+        "toEmail": "={{ $env.TITLE_COMPANY_EMAIL }}",
+        "subject": "New file \u2014 open title",
+        "text": "={{ JSON.stringify($json) }}"
+      },
+      "id": "title",
+      "name": "Open Title/Escrow",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [
+        2000,
+        220
+      ]
+    }
+  ],
+  "connections": {
+    "Deal Agreed Webhook": {
+      "main": [
+        [
+          {
+            "node": "Prefix Assembler (TOKENKILLER)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prefix Assembler (TOKENKILLER)": {
+      "main": [
+        [
+          {
+            "node": "DeepSeek \u00b7 Flash-Thinking",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DeepSeek \u00b7 Flash-Thinking": {
+      "main": [
+        [
+          {
+            "node": "Cache Ledger (NukeGuard)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cache Ledger (NukeGuard)": {
+      "main": [
+        [
+          {
+            "node": "HUMAN REVIEW GATE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HUMAN REVIEW GATE": {
+      "main": [
+        [
+          {
+            "node": "Wait for Approval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for Approval": {
+      "main": [
+        [
+          {
+            "node": "Approved?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Approved?": {
+      "main": [
+        [
+          {
+            "node": "Send e-Sign",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Send e-Sign": {
+      "main": [
+        [
+          {
+            "node": "Open Title/Escrow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "acb-ds-06"
+}

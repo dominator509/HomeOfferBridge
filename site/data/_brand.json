@@ -1,0 +1,10 @@
+{
+  "brand": "Home Offer Bridge",
+  "domain": "homeofferbridge.com",
+  "phone_default": "(509) 355-7455",
+  "phone_raw_default": "15093557455",
+  "review_count": 412,
+  "homes_bought": 500,
+  "lead_webhook": "https://n8n.homeofferbridge.com/webhook/lead-intake",
+  "mailing_address": "P.O. Box 4826, Spokane, WA 99220"
+}

@@ -1,0 +1,214 @@
+{
+  "name": "02 \u00b7 Valuation (DeepSeek, offer-range)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "valuation",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "wh",
+      "name": "Valuation Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "valuation"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $env.AVM_API_URL }}?address={{ encodeURIComponent($json.address || $json.body.address) }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.AVM_API_KEY }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "avm",
+      "name": "Fetch AVM + Comps",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        460,
+        300
+      ],
+      "notes": "ATTOM/county/AVM. Returns avm_estimate + comps for the volatile payload."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prefix Assembler (TOKENKILLER) \u2014 S0..PAD frozen, S3 volatile last.\nconst PREFIX = \"S0 You are the Valuation analyst. Output an offer RANGE only, never a firm number. Internal advisory only; never shown to seller. Concise reasoning.\\nS1 METHOD: ARV from best comps (recency<=90d, <=1mi, similar sqft/beds). repair_band light($15-25/sqft)/moderate($25-45)/heavy($45-75); pick most_likely from self_rated_condition + disclosed_issues (excellent->light, good->light-moderate, fair->moderate, poor->moderate-heavy, severe->heavy; foundation/fire/water_mold never below moderate, foundation/fire lean heavy; if condition absent assume moderate + flag 'condition unconfirmed'). MAO = ARV*(0.60..0.70) - repair_band - holding/closing; trend cooling->0.60 flat->0.65 rising->0.70; nudge -0.05 (floor 0.58) if poor/severe or major issue disclosed. Band is 0.60-0.70, NEVER above 0.70. OUTPUT ONLY JSON: {arv_estimate,repair_band:{low,high,most_likely},offer_range:{low,high},confidence,rationale,comps_used[],flags[]}. <3 comps => confidence=low, widen, flag 'thin comps'. Never invent comps.\\nPAD ---- alignment pad ----\";\nconst src = $input.first().json;\nconst trim = (src.comps||[]).slice(0,6).map(c=>({p:Math.round(c.sold_price||c.p||0),d:c.sold_date||c.d,sqft:c.sqft,bd:c.beds||c.bd,ba:c.baths||c.ba,mi:+(c.distance_mi||c.mi||0).toFixed(1)}));\nconst v = { address: src.address, subject: src.subject||{}, comps: trim, market: src.market||{}, self_rated_condition: src.self_rated_condition, disclosed_issues: src.disclosed_issues||[], disclosure_text: src.disclosure_text };\nreturn [{ json: { body: {\n  model: $env.DEEPSEEK_MODEL,\n  temperature: 0,\n  max_tokens: 700,\n  messages: [\n    { role: 'system', content: PREFIX },\n    { role: 'user',   content: JSON.stringify(v) }\n  ]\n}, _prefix_bytes: PREFIX.length } }];"
+      },
+      "id": "assembler",
+      "name": "Prefix Assembler (TOKENKILLER)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        300
+      ],
+      "notes": "PREFIX is a const literal \u2192 byte-identical every call \u2192 full-prefix cache hit."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.DEEPSEEK_BASE }}/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.DEEPSEEK_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.body) }}",
+        "options": {}
+      },
+      "id": "ds-http",
+      "name": "DeepSeek \u00b7 Flash-Thinking",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        900,
+        300
+      ],
+      "notes": "OpenAI-compatible. Prefix (system) cached on DeepSeek disk; only S3 user msg misses."
+    },
+    {
+      "parameters": {
+        "jsCode": "const r = $input.first().json;\nconst u = r.usage || {};\nconst hit = u.prompt_cache_hit_tokens || 0, miss = u.prompt_cache_miss_tokens || 0;\nconst ratio = (hit+miss) ? hit/(hit+miss) : 0;\nlet t = (r.choices && r.choices[0] && r.choices[0].message && r.choices[0].message.content) || '{}';\nlet out; try { out = JSON.parse(t.replace(/```json|```/g,'').trim()); } catch(e){ out = { _parse_error:true }; }\nout._cache = { hit, miss, ratio: +ratio.toFixed(4), ok: ratio >= 0.97 };\nif(!out._cache.ok) console.warn('TOKENKILLER: cache ratio below floor', out._cache);\nreturn [{ json: out }];"
+      },
+      "id": "ledger",
+      "name": "Cache Ledger (NukeGuard)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        300
+      ],
+      "notes": "Reads DeepSeek usage; asserts >=0.97; append rows to cache_ledger; CI replay gate."
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "table": "offers",
+        "columns": "offer_id,property_id,stage,arv_estimate,range_low,range_high,confidence,rationale"
+      },
+      "id": "store",
+      "name": "CRM \u00b7 Store Range",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        300
+      ],
+      "notes": "stage=range. Matches backend/schema/offer.schema.json"
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.TRIAGE_WEBHOOK }}",
+        "method": "POST",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "kick",
+      "name": "\u2192 Trigger Triage (03)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1560,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Valuation Webhook": {
+      "main": [
+        [
+          {
+            "node": "Fetch AVM + Comps",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch AVM + Comps": {
+      "main": [
+        [
+          {
+            "node": "Prefix Assembler (TOKENKILLER)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prefix Assembler (TOKENKILLER)": {
+      "main": [
+        [
+          {
+            "node": "DeepSeek \u00b7 Flash-Thinking",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DeepSeek \u00b7 Flash-Thinking": {
+      "main": [
+        [
+          {
+            "node": "Cache Ledger (NukeGuard)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cache Ledger (NukeGuard)": {
+      "main": [
+        [
+          {
+            "node": "CRM \u00b7 Store Range",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CRM \u00b7 Store Range": {
+      "main": [
+        [
+          {
+            "node": "\u2192 Trigger Triage (03)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "acb-ds-02"
+}

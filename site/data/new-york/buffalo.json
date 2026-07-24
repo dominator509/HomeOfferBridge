@@ -1,0 +1,81 @@
+{
+  "city": "Buffalo",
+  "city_slug": "buffalo",
+  "metro": "Western New York",
+  "phone": "(509) 355-7455",
+  "phone_raw": "15093557455",
+  "review_count": 31,
+  "median_price": "$225,000",
+  "avg_dom": 24,
+  "cash_share": "27%",
+  "neighborhoods": "the West Side, the East Side, North Buffalo, South Buffalo, and Riverside",
+  "landmark": "Niagara Square and City Hall",
+  "outlying_area": "Cheektowaga and Amherst",
+  "local_market_longform": "<p>Buffalo is its own market, and a cash sale here works differently than the national talking points suggest. Homes in Buffalo currently trade around a median of $225,000 and take roughly 24 days to go under contract, with about 27% of area sales closing in cash. When you need certainty instead of a drawn-out listing \u2014 a firm number and a date you choose \u2014 that local pace is exactly why selling directly makes sense.</p><p>The housing stock shapes everything about condition here. Buffalo runs heavily to late-1800s to 1920s Victorian doubles and bungalows, plus post-war suburban ranches, and each era carries its own repair realities. That matters because we price the house in front of us rather than asking you to renovate it first \u2014 the things a traditional buyer's inspector flags are the same things we already expect and account for.</p><p>Local conditions are the other factor a generic buyer ignores. Around Buffalo, the issues we see most are lake-effect snow, ice-dam, and roof damage, century-old plumbing and knob-and-tube wiring, basement flooding, and aging furnaces. We've made offers on homes with every one of those problems, so none of it scares us off or kills the deal at the last minute.</p><p>We buy across the whole area \u2014 from close-in neighborhoods like the West Side out to Cheektowaga and Amherst \u2014 and in New York the local economy anchored by healthcare and the Buffalo-Niagara Medical Campus, higher education, and advanced manufacturing keeps demand real. Inherited homes, tired rentals, pre-foreclosure situations in Erie County, and houses that simply need more work than the owner wants to take on: those are the Buffalo sellers we help most.</p><p>Being a genuinely local buyer near Niagara Square and City Hall also means our offer isn't a lowball pulled from a national algorithm that has never seen Buffalo. We know what a block in the West Side, the East Side, North Buffalo, and South Buffalo actually sells for, what Western New York buyers will and won't pay for, and how Erie County's title and closing process really works. That local read is why our sellers get a number they can trust and a closing that actually happens on the date we promised.</p>",
+  "situations": [
+    {
+      "title": "Divorce or a major life change",
+      "body": "When the goal is simply to have the Buffalo house handled cleanly and split fairly, we make the sale the simple part."
+    },
+    {
+      "title": "Done being a landlord",
+      "body": "Problem tenants, deferred maintenance, or a Buffalo rental that stopped penciling out. We buy occupied properties and handle the situation so you can walk away clean."
+    },
+    {
+      "title": "Inherited a house in Buffalo",
+      "body": "Settling an estate \u2014 often from out of state \u2014 is hard enough without a listing on top of it. We buy inherited Buffalo homes as-is, work alongside the Erie County probate process, and let you take what matters and leave the rest."
+    },
+    {
+      "title": "Facing foreclosure",
+      "body": "If you're behind on payments in Erie County, a fast cash sale can settle the loan before it hits your credit. We move on your timeline, not the bank's."
+    },
+    {
+      "title": "Downsizing or aging in place",
+      "body": "When a longtime the West Side-area home has become too much to keep up, we make a fair offer and let you set a move-out date that isn't rushed."
+    },
+    {
+      "title": "The house needs too much work",
+      "body": "Fire, water, foundation, or years of deferred repairs \u2014 we've bought all of it around Buffalo. No cleaning, no contractors, no staging."
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "Inherited my mom's place in the East Side and couldn't face fixing it up. They closed in nine days and I never had to fly back out.",
+      "who": "Lisa B., Buffalo"
+    },
+    {
+      "quote": "Had a written offer already and they beat it. Straightforward, and the number they promised was the number at closing.",
+      "who": "James T., Cheektowaga"
+    },
+    {
+      "quote": "Facing foreclosure and out of time. They moved fast, let me pick the date, and I walked away with cash in hand.",
+      "who": "Ray M., Buffalo"
+    }
+  ],
+  "faq": [
+    {
+      "q": "How fast can you close on my Buffalo house?",
+      "a": "As little as 7 days through a licensed New York title company, or any later date you choose. Sellers in Buffalo pick the timeline that fits their move."
+    },
+    {
+      "q": "Do I pay any fees or commissions?",
+      "a": "None. No agent commissions, no listing fees, and we cover standard closing costs. The number we agree on is what you receive."
+    },
+    {
+      "q": "Do I need to repair or clean the house first?",
+      "a": "No. We buy Buffalo homes in any condition \u2014 including the lake-effect snow we see so often here. Take what you want and leave the rest."
+    },
+    {
+      "q": "How do you decide the offer amount?",
+      "a": "We look at recent comparable sales in your Buffalo neighborhood \u2014 places like the West Side \u2014 the home's condition, and current Western New York demand, then make a fair cash offer you're free to accept or decline."
+    },
+    {
+      "q": "Is this a licensed, legitimate way to sell in New York?",
+      "a": "Yes. We are a direct buyer, not your agent or broker, and we put that in writing. New York permits direct purchases; we market our own equitable interest to a private buyer network and disclose our role in writing."
+    },
+    {
+      "q": "Can you help with foreclosure, probate, or tenants?",
+      "a": "Often, yes. We regularly work with Erie County sellers facing foreclosure, probate, liens, or tenant issues, and we structure the sale around the situation."
+    }
+  ]
+}

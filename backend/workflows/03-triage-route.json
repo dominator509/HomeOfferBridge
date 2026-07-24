@@ -1,0 +1,251 @@
+{
+  "name": "03 \u00b7 Triage + Route (DeepSeek)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "triage",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "wh",
+      "name": "Triage Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "triage"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prefix Assembler (TOKENKILLER) \u2014 S0..PAD frozen, S3 volatile last.\nconst PREFIX = \"S0 You are the Lead Scorer/Triage. Concise reasoning. Never discard a lead; distress floors tier at WARM. No protected-class inference.\\nS1 WEIGHTS motivation40 timeline30 equity20 contact10 -> score0..100. HOT>=70 human_now; WARM40-69 schedule_24h; COLD<40 nurture. OUTPUT ONLY JSON: {tier,score,top_reasons[],route,notes}.\\nPAD ---- alignment pad ----\";\nconst src = $input.first().json;\nconst v = { motivation: src.motivation, timeline: src.timeline, equity_signal: src.equity_signal||src.confidence, contactability: src.contactability, city: src.city };\nreturn [{ json: { body: {\n  model: $env.DEEPSEEK_MODEL,\n  temperature: 0,\n  max_tokens: 400,\n  messages: [\n    { role: 'system', content: PREFIX },\n    { role: 'user',   content: JSON.stringify(v) }\n  ]\n}, _prefix_bytes: PREFIX.length } }];"
+      },
+      "id": "assembler",
+      "name": "Prefix Assembler (TOKENKILLER)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ],
+      "notes": "PREFIX is a const literal \u2192 byte-identical every call \u2192 full-prefix cache hit."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.DEEPSEEK_BASE }}/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.DEEPSEEK_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.body) }}",
+        "options": {}
+      },
+      "id": "ds-http",
+      "name": "DeepSeek \u00b7 Flash-Thinking",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        680,
+        300
+      ],
+      "notes": "OpenAI-compatible. Prefix (system) cached on DeepSeek disk; only S3 user msg misses."
+    },
+    {
+      "parameters": {
+        "jsCode": "const r = $input.first().json;\nconst u = r.usage || {};\nconst hit = u.prompt_cache_hit_tokens || 0, miss = u.prompt_cache_miss_tokens || 0;\nconst ratio = (hit+miss) ? hit/(hit+miss) : 0;\nlet t = (r.choices && r.choices[0] && r.choices[0].message && r.choices[0].message.content) || '{}';\nlet out; try { out = JSON.parse(t.replace(/```json|```/g,'').trim()); } catch(e){ out = { _parse_error:true }; }\nout._cache = { hit, miss, ratio: +ratio.toFixed(4), ok: ratio >= 0.97 };\nif(!out._cache.ok) console.warn('TOKENKILLER: cache ratio below floor', out._cache);\nreturn [{ json: out }];"
+      },
+      "id": "ledger",
+      "name": "Cache Ledger (NukeGuard)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        300
+      ],
+      "notes": "Reads DeepSeek usage; asserts >=0.97; append rows to cache_ledger; CI replay gate."
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json.tier }}",
+        "rules": {
+          "rules": [
+            {
+              "value2": "HOT",
+              "output": 0
+            },
+            {
+              "value2": "WARM",
+              "output": 1
+            },
+            {
+              "value2": "COLD",
+              "output": 2
+            }
+          ]
+        }
+      },
+      "id": "switch",
+      "name": "Route by Tier",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "alerts@{{ $env.DOMAIN }}",
+        "toEmail": "={{ $env.CLOSER_ALERT }}",
+        "subject": "HOT LEAD \u2014 call now",
+        "text": "={{ JSON.stringify($json) }}"
+      },
+      "id": "hot",
+      "name": "HOT \u00b7 Alert Closer NOW",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [
+        1360,
+        160
+      ],
+      "notes": "Payload = score+reasons+offer_range+handoff_summary. Also triggers voice-assist(05) if closer not free in 2 min."
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.SCHEDULER_WEBHOOK }}",
+        "method": "POST",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "warm",
+      "name": "WARM \u00b7 Schedule 24h",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1360,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.NURTURE_WEBHOOK }}",
+        "method": "POST",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "nurture",
+      "name": "COLD/WARM \u00b7 Enter Nurture",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1360,
+        440
+      ]
+    }
+  ],
+  "connections": {
+    "Triage Webhook": {
+      "main": [
+        [
+          {
+            "node": "Prefix Assembler (TOKENKILLER)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prefix Assembler (TOKENKILLER)": {
+      "main": [
+        [
+          {
+            "node": "DeepSeek \u00b7 Flash-Thinking",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DeepSeek \u00b7 Flash-Thinking": {
+      "main": [
+        [
+          {
+            "node": "Cache Ledger (NukeGuard)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cache Ledger (NukeGuard)": {
+      "main": [
+        [
+          {
+            "node": "Route by Tier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route by Tier": {
+      "main": [
+        [
+          {
+            "node": "HOT \u00b7 Alert Closer NOW",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "COLD/WARM \u00b7 Enter Nurture",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "WARM \u00b7 Schedule 24h",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "COLD/WARM \u00b7 Enter Nurture",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "COLD/WARM \u00b7 Enter Nurture",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "acb-ds-03"
+}

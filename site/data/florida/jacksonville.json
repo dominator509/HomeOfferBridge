@@ -1,0 +1,81 @@
+{
+  "city": "Jacksonville",
+  "city_slug": "jacksonville",
+  "metro": "Northeast Florida",
+  "phone": "(509) 355-7455",
+  "phone_raw": "15093557455",
+  "review_count": 35,
+  "median_price": "$310,000",
+  "avg_dom": 46,
+  "cash_share": "28%",
+  "neighborhoods": "Springfield, Riverside, the Eastside, Murray Hill, and Arlington",
+  "landmark": "the St. Johns River",
+  "outlying_area": "Orange Park and St. Augustine",
+  "local_market_longform": "<p>Jacksonville is its own market, and a cash sale here works differently than the national talking points suggest. Homes in Jacksonville currently trade around a median of $310,000 and take roughly 46 days to go under contract, with about 28% of area sales closing in cash. When you need certainty instead of a drawn-out listing \u2014 a firm number and a date you choose \u2014 that local pace is exactly why selling directly makes sense.</p><p>The housing stock shapes everything about condition here. Jacksonville runs heavily to 1900s\u20131920s frame and brick homes in Springfield and Riverside, post-war ranches, and newer suburban tracts, and each era carries its own repair realities. That matters because we price the house in front of us rather than asking you to renovate it first \u2014 the things a traditional buyer's inspector flags are the same things we already expect and account for.</p><p>Local conditions are the other factor a generic buyer ignores. Around Jacksonville, the issues we see most are hurricane and river-and-coastal flood risk, termite and moisture rot, aging pier and block foundations, and roof damage. We've made offers on homes with every one of those problems, so none of it scares us off or kills the deal at the last minute.</p><p>We buy across the whole area \u2014 from close-in neighborhoods like Springfield out to Orange Park and St. Augustine \u2014 and in Florida the local economy anchored by the Navy (two large bases), the port, finance and insurance, and logistics keeps demand real. Inherited homes, tired rentals, pre-foreclosure situations in Duval County, and houses that simply need more work than the owner wants to take on: those are the Jacksonville sellers we help most.</p><p>Being a genuinely local buyer near the St. Johns River also means our offer isn't a lowball pulled from a national algorithm that has never seen Jacksonville. We know what a block in Springfield, Riverside, the Eastside, and Murray Hill actually sells for, what Northeast Florida buyers will and won't pay for, and how Duval County's title and closing process really works. That local read is why our sellers get a number they can trust and a closing that actually happens on the date we promised.</p>",
+  "situations": [
+    {
+      "title": "Done being a landlord",
+      "body": "Problem tenants, deferred maintenance, or a Jacksonville rental that stopped penciling out. We buy occupied properties and handle the situation so you can walk away clean."
+    },
+    {
+      "title": "Relocating",
+      "body": "A job change shouldn't mean carrying two mortgages or managing a sale from a thousand miles away. Close on your schedule and move on."
+    },
+    {
+      "title": "Inherited a house in Jacksonville",
+      "body": "Settling an estate \u2014 often from out of state \u2014 is hard enough without a listing on top of it. We buy inherited Jacksonville homes as-is, work alongside the Duval County probate process, and let you take what matters and leave the rest."
+    },
+    {
+      "title": "Tired of two mortgages",
+      "body": "If you've already moved and the old Jacksonville place is just draining you every month, we can take it off your hands quickly."
+    },
+    {
+      "title": "Downsizing or aging in place",
+      "body": "When a longtime Springfield-area home has become too much to keep up, we make a fair offer and let you set a move-out date that isn't rushed."
+    },
+    {
+      "title": "Facing foreclosure",
+      "body": "If you're behind on payments in Duval County, a fast cash sale can settle the loan before it hits your credit. We move on your timeline, not the bank's."
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "Inherited my mom's place in the Eastside and couldn't face fixing it up. They closed in nine days and I never had to fly back out.",
+      "who": "Marcus P., Jacksonville"
+    },
+    {
+      "quote": "Had a written offer already and they beat it. Straightforward, and the number they promised was the number at closing.",
+      "who": "David K., Orange Park"
+    },
+    {
+      "quote": "Facing foreclosure and out of time. They moved fast, let me pick the date, and I walked away with cash in hand.",
+      "who": "Angela D., Jacksonville"
+    }
+  ],
+  "faq": [
+    {
+      "q": "How fast can you close on my Jacksonville house?",
+      "a": "As little as 7 days through a licensed Florida title company, or any later date you choose. Sellers in Jacksonville pick the timeline that fits their move."
+    },
+    {
+      "q": "Do I pay any fees or commissions?",
+      "a": "None. No agent commissions, no listing fees, and we cover standard closing costs. The number we agree on is what you receive."
+    },
+    {
+      "q": "Do I need to repair or clean the house first?",
+      "a": "No. We buy Jacksonville homes in any condition \u2014 including the hurricane and river-and-coastal flood risk we see so often here. Take what you want and leave the rest."
+    },
+    {
+      "q": "How do you decide the offer amount?",
+      "a": "We look at recent comparable sales in your Jacksonville neighborhood \u2014 places like Springfield \u2014 the home's condition, and current Northeast Florida demand, then make a fair cash offer you're free to accept or decline."
+    },
+    {
+      "q": "Is this a licensed, legitimate way to sell in Florida?",
+      "a": "Yes. We are a direct buyer, not your agent or broker, and we put that in writing. Florida permits direct cash purchases when you market your equitable interest; we buy directly and disclose our role on every contract."
+    },
+    {
+      "q": "Can you help with foreclosure, probate, or tenants?",
+      "a": "Often, yes. We regularly work with Duval County sellers facing foreclosure, probate, liens, or tenant issues, and we structure the sale around the situation."
+    }
+  ]
+}
