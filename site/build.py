@@ -43,6 +43,8 @@ def city_schema_jsonld(brand, state, city, url):
         "@type":"Question","name":f["q"],
         "acceptedAnswer":{"@type":"Answer","text":f["a"]}
     } for f in city["faq"]]
+    home_url = f'https://{brand["domain"]}/'
+    state_url = f'https://{brand["domain"]}/{state["state_slug"]}/'
     graph = {
       "@context":"https://schema.org",
       "@graph":[
@@ -58,9 +60,46 @@ def city_schema_jsonld(brand, state, city, url):
             "addressRegion":state["state_abbr"],"addressCountry":"US"},
          "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9",
             "reviewCount":str(city["review_count"]),"bestRating":"5","worstRating":"1"}},
-        {"@type":"FAQPage","@id":f"{url}#faq","mainEntity":faq_entities}
+        {"@type":"FAQPage","@id":f"{url}#faq","mainEntity":faq_entities},
+        {"@type":"BreadcrumbList","@id":f"{url}#breadcrumb","itemListElement":[
+          {"@type":"ListItem","position":1,"name":"Home","item":home_url},
+          {"@type":"ListItem","position":2,"name":state["state"],"item":state_url},
+          {"@type":"ListItem","position":3,"name":city["city"],"item":url}
+        ]}
       ]}
     return json.dumps(graph, ensure_ascii=False)
+
+def state_schema_jsonld(brand, state, url):
+    home_url = f'https://{brand["domain"]}/'
+    graph = {
+      "@context":"https://schema.org",
+      "@graph":[
+        {"@type":"CollectionPage",
+         "@id":f"{url}#page",
+         "name":f'Sell Your House Fast in {state["state"]}',
+         "url":url,
+         "isPartOf":{"@type":"WebSite","name":brand["brand"],"url":home_url}},
+        {"@type":"BreadcrumbList","@id":f"{url}#breadcrumb","itemListElement":[
+          {"@type":"ListItem","position":1,"name":"Home","item":home_url},
+          {"@type":"ListItem","position":2,"name":state["state"],"item":url}
+        ]}
+      ]}
+    return json.dumps(graph, ensure_ascii=False)
+
+def render_sibling_cities(state, city, cities):
+    siblings = [c for c in cities if c["city_slug"] != city["city_slug"]]
+    if not siblings:
+        return ""
+    links = "".join(
+        f'<a href="/{state["state_slug"]}/{c["city_slug"]}/">{esc(c["city"])}<span>→</span></a>'
+        for c in siblings)
+    return (
+        f'<section class="pad"><div class="wrap">'
+        f'<div class="kicker">Nearby markets</div>'
+        f'<h2>We also buy in these {esc(state["state"])} cities</h2>'
+        f'<div class="citylist">{links}</div>'
+        f'</div></section>'
+    )
 
 def render_situations(city):
     return "".join(
@@ -80,7 +119,7 @@ def render_faq(city):
         out.append(f'<details{op}><summary>{esc(f["q"])}</summary><p>{esc(f["a"])}</p></details>')
     return "".join(out)
 
-def build_city(brand, state, city, city_tpl):
+def build_city(brand, state, city, city_tpl, sibling_cities=None):
     slug_path = f'/{state["state_slug"]}/{city["city_slug"]}/'
     url = f'https://{brand["domain"]}{slug_path}'
     meta_title = f'Sell My House Fast in {city["city"]}, {state["state_abbr"]} — Fair Cash Offer in 24 Hours'
@@ -108,6 +147,7 @@ def build_city(brand, state, city, city_tpl):
       "FAQ_HTML": render_faq(city),
       "CITY_HERO_IMAGE": esc(city.get("hero_image", f"/assets/cities/{city['city_slug']}.jpg")),
       "CITY_HERO_ALT": esc(f"{city['city']}, {state['state']} skyline"),
+      "SIBLING_CITIES_HTML": render_sibling_cities(state, city, sibling_cities or []),
     }
     out_dir = DIST / state["state_slug"] / city["city_slug"]
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -118,6 +158,7 @@ def build_state(brand, state, cities, state_tpl):
     links = "".join(
         f'<a href="/{state["state_slug"]}/{c["city_slug"]}/">{esc(c["city"])}<span>→</span></a>'
         for c in cities)
+    state_url = f'https://{brand["domain"]}/{state["state_slug"]}/'
     tokens = {
       "DOMAIN": brand["domain"], "BRAND": esc(brand["brand"]),
       "STATE": esc(state["state"]), "STATE_ABBR": state["state_abbr"], "STATE_SLUG": state["state_slug"],
@@ -126,6 +167,7 @@ def build_state(brand, state, cities, state_tpl):
       "HOMES_BOUGHT": str(brand["homes_bought"]),
       "FIRST_CITY_SLUG": cities[0]["city_slug"],
       "CITY_LINKS": links,
+      "SCHEMA_JSONLD": state_schema_jsonld(brand, state, state_url),
     }
     out_dir = DIST / state["state_slug"]
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -160,6 +202,7 @@ def build_home(brand, states, home_tpl):
       "PHONE": esc(brand["phone_default"]), "PHONE_RAW": brand["phone_raw_default"],
       "MAILING_ADDRESS": esc(brand.get("mailing_address","")),
       "HOMES_BOUGHT": str(brand["homes_bought"]), "REVIEW_COUNT": str(brand["review_count"]),
+      "LEAD_WEBHOOK": brand["lead_webhook"],
       "STATE_LINKS": links,
     }
     (DIST / "index.html").write_text(fill(home_tpl, tokens), encoding="utf-8")
@@ -178,6 +221,26 @@ def write_robots(brand):
     (DIST / "robots.txt").write_text(
         "User-agent: *\nAllow: /\n"
         f"Sitemap: https://{brand['domain']}/sitemap.xml\n", encoding="utf-8")
+
+def write_llms(brand):
+    """Lightweight llms.txt so AI crawlers can understand the site."""
+    body = (
+        f"# {brand['brand']}\n"
+        f"> We buy houses for cash nationwide. Fair, no-obligation offers in 24 hours. "
+        f"Any condition, no fees, close on the seller's timeline.\n\n"
+        f"## Site\n"
+        f"- [Home](https://{brand['domain']}/): National hub and cash-offer form\n"
+        f"- [Sitemap](https://{brand['domain']}/sitemap.xml): All state and city pages\n"
+        f"- [How it works](https://{brand['domain']}/how-it-works/): Process overview\n"
+        f"- [FAQ](https://{brand['domain']}/faq/): Common seller questions\n"
+        f"- [About](https://{brand['domain']}/about/): Company overview\n"
+        f"- [Contact](https://{brand['domain']}/contact/): Reach the team\n\n"
+        f"## Notes\n"
+        f"- Principal cash buyer / real estate investment company — not a real estate agent or broker\n"
+        f"- Phone: {brand['phone_default']}\n"
+        f"- Mailing address: {brand.get('mailing_address', '')}\n"
+    )
+    (DIST / "llms.txt").write_text(body, encoding="utf-8")
 
 def copy_assets():
     dst = DIST / "assets"; dst.mkdir(parents=True, exist_ok=True)
@@ -250,17 +313,18 @@ def main():
         state_meta.append(state)
         urls.append(build_state(brand, state, cities, state_tpl))
         for c in cities:
-            urls.append(build_city(brand, state, c, city_tpl))
+            urls.append(build_city(brand, state, c, city_tpl, sibling_cities=cities))
     build_home(brand, state_meta, home_tpl)
     urls.extend(build_static(brand, static_tpl))
     copy_assets()
     write_sitemap(brand, urls)
     write_robots(brand)
+    write_llms(brand)
 
     pages=len(urls)
     print(f"✓ built {pages} pages across {len(states)} state(s) into dist/")
     print(f"  → {sum(len(c) for _,c in states)} city pages, {len(states)} state hubs, 1 national hub")
-    print(f"  → sitemap.xml ({pages} urls), robots.txt, assets/")
+    print(f"  → sitemap.xml ({pages} urls), robots.txt, llms.txt, assets/")
 
 if __name__=="__main__":
     main()
