@@ -15,45 +15,123 @@
 </head>
 <body>
 <div class="topbar"><div class="wrap"><span><b>{{BRAND}}</b> · America's fair cash home buyer</span><a class="call" href="tel:{{PHONE_RAW}}">Call {{PHONE}}</a></div></div>
-<nav class="main"><div class="wrap"><a class="brand" href="/"><span class="dot"></span>{{BRAND}}</a><a class="navcta" href="#states">Get my cash offer</a></div></nav>
-<section class="hero"><div class="wrap" style="grid-template-columns:1fr;text-align:center">
+<nav class="main"><div class="wrap"><a class="brand" href="/"><span class="dot"></span>{{BRAND}}</a><a class="navcta" href="#offer">Get my cash offer</a></div></nav>
+
+<section class="hero">
+<div class="wrap">
   <div>
-    <span class="eyebrow" style="justify-content:center">Nationwide · fair cash offers</span>
-    <h1 style="max-width:18ch;margin:0 auto 14px">Sell your house fast, <span class="u">anywhere</span>, for a fair cash offer.</h1>
-    <p class="sub" style="max-width:48ch;margin:0 auto 22px">No repairs. No fees. No waiting on financing. Get a no-obligation cash offer in 24 hours and close on your own timeline.</p>
-    <div class="microtrust" style="justify-content:center">
-      <span><span class="tick">✓</span> Any condition</span><span><span class="tick">✓</span> $0 fees</span><span><span class="tick">✓</span> Close in 7 days</span>
+    <span class="eyebrow">Nationwide · fair cash offers</span>
+    <h1>Sell your house fast, <span class="u">anywhere</span>, for a fair cash offer.</h1>
+    <p class="sub">No repairs. No fees. No waiting on financing. Get a no-obligation cash offer in 24 hours and close on your own timeline.</p>
+    <div class="microtrust" style="justify-content:flex-start">
+      <span><span class="tick">✓</span> Any condition</span>
+      <span><span class="tick">✓</span> $0 fees</span>
+      <span><span class="tick">✓</span> Close in 7 days</span>
+    </div>
+  </div>
+
+  <div class="offercard" id="offer">
+    <div class="step-label"><span id="stepName">Where's the house?</span>
+      <span class="progress" aria-label="Form progress"><i class="on" id="p1"></i><i id="p2"></i><i id="p3"></i></span>
+    </div>
+    <div id="s1">
+      <p class="stepnote">Enter the property address — takes about 10 seconds.</p>
+      <div class="field"><input id="addr" type="text" autocomplete="street-address" placeholder="123 Main St, City, ST" /></div>
+      <button class="bigbtn" type="button" onclick="next()">See my cash offer →</button>
+      <div class="microtrust"><span><span class="tick">✓</span> Free &amp; private</span><span><span class="tick">✓</span> No spam, ever</span></div>
+    </div>
+    <div id="s2" style="display:none">
+      <p class="stepnote">Great — where should we send your offer? We'll call within 24 hours.</p>
+      <div class="field"><input id="name" type="text" autocomplete="name" placeholder="Your name" /></div>
+      <div class="field"><input id="email" type="email" autocomplete="email" inputmode="email" placeholder="Your email address" /></div>
+      <div class="field"><input id="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="Your phone number" /></div>
+      <label class="consent"><input type="checkbox" id="consent" />
+        <span>I agree to the <a href="/terms-of-service/" target="_blank" rel="noopener">Terms</a> and <a href="/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>, and consent to calls, texts, and emails about my cash offer. Msg/data rates may apply; consent isn’t required to get an offer.
+          <button type="button" class="consent-toggle" data-consent-toggle aria-expanded="false">Show full consent</button>
+          <span class="consent-extra" hidden>I expressly consent to recurring SMS, phone calls, and emails from Home Offer Bridge regarding my property inquiry and cash offer. Message frequency varies. I have read, understood, and agree to be bound by the Terms of Service and Privacy Policy. Consent is not a condition of any purchase.</span>
+        </span>
+      </label>
+      <button class="bigbtn" type="button" onclick="submitLead()">Get my offer now →</button>
+      <div class="microtrust"><span><span class="tick">✓</span> One quick call</span><span><span class="tick">✓</span> Zero obligation</span></div>
+    </div>
+    <div id="s3" style="display:none">
+      <p class="stepnote">Last step — this helps us make our strongest, most accurate offer. Your info is saved either way.</p>
+      <label class="fieldlabel">How would you rate the home's overall condition?</label>
+      <div class="condgrid" id="condgrid">
+        <label class="condcard c-exc"><input type="radio" name="cond" value="excellent" /><span class="cc-ic">✨</span><span class="cc-t">Turnkey</span><span class="cc-d">Move-in ready. Updated, clean, no known repairs.</span></label>
+        <label class="condcard c-good"><input type="radio" name="cond" value="good" /><span class="cc-ic">🙂</span><span class="cc-t">Good</span><span class="cc-d">Well maintained. Only minor cosmetic work.</span></label>
+        <label class="condcard c-fair"><input type="radio" name="cond" value="fair" /><span class="cc-ic">🛠️</span><span class="cc-t">Fair</span><span class="cc-d">Dated or some deferred upkeep. A few repairs needed.</span></label>
+        <label class="condcard c-poor"><input type="radio" name="cond" value="poor" /><span class="cc-ic">⚠️</span><span class="cc-t">Poor</span><span class="cc-d">Significant repairs — roof, HVAC, or systems. Visible wear.</span></label>
+        <label class="condcard c-sev"><input type="radio" name="cond" value="severe" /><span class="cc-ic">🚧</span><span class="cc-t">Major issues</span><span class="cc-d">Major damage (fire, water, foundation) or not livable as-is.</span></label>
+      </div>
+      <p class="fieldhint" id="condErr" style="display:none">Please select a condition so we can price your offer accurately.</p>
+      <label class="fieldlabel">Anything we should know about? <span class="opt">(check all that apply)</span></label>
+      <div class="discgrid">
+        <label><input type="checkbox" name="issue" value="roof" /> Roof</label>
+        <label><input type="checkbox" name="issue" value="foundation" /> Foundation</label>
+        <label><input type="checkbox" name="issue" value="plumbing_electrical" /> Plumbing / electrical</label>
+        <label><input type="checkbox" name="issue" value="water_mold" /> Water / mold</label>
+        <label><input type="checkbox" name="issue" value="hvac" /> HVAC / AC</label>
+        <label><input type="checkbox" name="issue" value="termites_pests" /> Termites / pests</label>
+        <label><input type="checkbox" name="issue" value="fire" /> Fire damage</label>
+        <label><input type="checkbox" name="issue" value="code_permits" /> Code / permit issues</label>
+      </div>
+      <label class="fieldlabel">Describe any damage or needed repairs <span class="opt">(optional)</span></label>
+      <textarea id="disclose" class="discinput" rows="3" placeholder="e.g. Roof is ~20 years old and leaks in the back bedroom…"></textarea>
+      <label class="consent"><input type="checkbox" id="ack" /> <span>I confirm the condition rating and disclosures above are accurate to the best of my knowledge. Final offer is confirmed after a quick property visit.</span></label>
+      <p class="fieldhint" id="ackErr" style="display:none">Please check the box to confirm your disclosures.</p>
+      <button class="bigbtn" type="button" onclick="submitDisclosure()">Finish &amp; get my offer →</button>
+      <div class="microtrust"><span><span class="tick">✓</span> Speeds up your offer</span><span><span class="tick">✓</span> No obligation</span></div>
+    </div>
+    <div id="sDone" style="display:none;text-align:center;padding:8px 0">
+      <div style="font-size:2rem">✅</div>
+      <h3 style="font-family:'Fraunces',serif;margin:6px 0">You're all set.</h3>
+      <p class="stepnote" style="margin:0">A home specialist will call you within 24 hours with your no-obligation cash offer. Watch for a text from <span data-brand-phone>{{PHONE}}</span>.</p>
+    </div>
+    <div class="meter">
+      <div class="row"><span id="meterMsg">Offer readiness</span><span id="meterPct">40%</span></div>
+      <div class="meterbar"><i id="meterFill" style="width:40%"></i></div>
     </div>
   </div>
 </div></section>
+
 <div class="strip"><div class="wrap">
   <div><div class="n">{{HOMES_BOUGHT}}+</div><div class="l">Homes purchased</div></div>
   <div><div class="n">7&nbsp;days</div><div class="l">Fastest close</div></div>
   <div><div class="n">$0</div><div class="l">Fees or commissions</div></div>
   <div><div class="n">4.9★</div><div class="l">{{REVIEW_COUNT}} reviews</div></div>
 </div></div>
-<section class="pad" id="states"><div class="wrap">
-  <div class="kicker">Where we buy</div>
-  <h2>Find your state</h2>
-  <p class="lead">We're expanding across the country. Choose your state to see local markets and get started.</p>
-  <div class="citylist">{{STATE_LINKS}}</div>
-</div></section>
+
 <section class="pad alt"><div class="wrap">
   <div class="kicker">How it works</div>
   <h2>Three steps. No surprises.</h2>
+  <p class="lead">Skip months of showings, repairs, and financing risk. Our process is built for certainty.</p>
   <div class="steps">
     <div class="step"><div class="num">1</div><h3>Tell us the address</h3><p>Share your property and a phone number — that's the whole form.</p></div>
     <div class="step"><div class="num">2</div><h3>Get your cash offer</h3><p>A local specialist calls within 24 hours with a fair, no-obligation number.</p></div>
     <div class="step"><div class="num">3</div><h3>Close on your date</h3><p>Accept and close through a licensed local title company in as few as 7 days.</p></div>
   </div>
 </div></section>
+
+<section class="pad" id="states"><div class="wrap">
+  <div class="kicker">Where we buy</div>
+  <h2>Find your state</h2>
+  <p class="lead">Prefer to browse by market? Choose your state to see local pages — or use the offer form above to get started anywhere.</p>
+  <div class="citylist">{{STATE_LINKS}}</div>
+</div></section>
+
 <footer><div class="wrap">
   <div><div class="brand" style="font-family:'Fraunces',serif;font-size:1.2rem;margin-bottom:10px">{{BRAND}}</div>
   <p style="max-width:38ch;margin:0">America's fair cash home buyer. Any condition, any situation, any market.</p>
   <p style="margin-top:14px"><a href="tel:{{PHONE_RAW}}" style="color:var(--gold);font-weight:700">{{PHONE}}</a></p></div>
-  <div><b style="color:#fff">Company</b><a href="/how-it-works/">How it works</a><a href="/faq/">FAQ</a><a href="/about/">About</a><a href="/privacy-policy/">Privacy Policy</a><a href="/terms-of-service/">Terms of Service</a></div>
-  <div><b style="color:#fff">Coverage</b><a href="/sitemap.xml">All service areas</a></div>
+  <div><b style="color:#fff">Company</b><a href="#offer">Get a cash offer</a><a href="/how-it-works/">How it works</a><a href="/faq/">FAQ</a><a href="/about/">About</a><a href="/privacy-policy/">Privacy Policy</a><a href="/terms-of-service/">Terms of Service</a></div>
+  <div><b style="color:#fff">Coverage</b><a href="#states">All states</a><a href="/sitemap.xml">All service areas</a></div>
   <div class="disc" style="grid-column:1/-1">© <span id="yr"></span> {{BRAND}}. Real estate investment company; not your agent or broker. Offers are non-obligation.<br />Mailing address: {{MAILING_ADDRESS}}</div>
 </div></footer>
-<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+
+<a class="mobcta" href="#offer" id="mobcta">Get my cash offer</a>
+<script>
+window.HOB_LEAD={webhook:"{{LEAD_WEBHOOK}}",city:"",state:"",source:"home",brandPhone:"{{PHONE}}"};
+</script>
+<script src="/assets/lead.js" defer></script>
 </body></html>

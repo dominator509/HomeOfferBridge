@@ -47,12 +47,12 @@
 
   <div class="offercard" id="offer">
     <div class="step-label"><span id="stepName">Where's the house?</span>
-      <span class="progress"><i class="on" id="p1"></i><i id="p2"></i><i id="p3"></i></span>
+      <span class="progress" aria-label="Form progress"><i class="on" id="p1"></i><i id="p2"></i><i id="p3"></i></span>
     </div>
     <div id="s1">
       <p class="stepnote">Enter the property address — takes about 10 seconds.</p>
       <div class="field"><input id="addr" type="text" autocomplete="street-address" placeholder="123 Main St, {{CITY}}, {{STATE_ABBR}}" /></div>
-      <button class="bigbtn" onclick="next()">See my cash offer →</button>
+      <button class="bigbtn" type="button" onclick="next()">See my cash offer →</button>
       <div class="microtrust"><span><span class="tick">✓</span> Free &amp; private</span><span><span class="tick">✓</span> No spam, ever</span></div>
     </div>
     <div id="s2" style="display:none">
@@ -60,8 +60,13 @@
       <div class="field"><input id="name" type="text" autocomplete="name" placeholder="Your name" /></div>
       <div class="field"><input id="email" type="email" autocomplete="email" inputmode="email" placeholder="Your email address" /></div>
       <div class="field"><input id="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="Your phone number" /></div>
-      <label class="consent"><input type="checkbox" id="consent" /> <span>I agree to the <a href="/terms-of-service/" target="_blank">Terms of Service</a> and <a href="/privacy-policy/" target="_blank">Privacy Policy</a> of Home Offer Bridge. By checking this box and submitting my information, I expressly consent to receive recurring SMS messages, phone calls, and emails from Home Offer Bridge regarding my property inquiry and cash offer, and I acknowledge that I have read, understood, and agree to be bound by the foregoing terms. Message frequency varies. Message and data rates may apply. Consent is not a condition of any purchase.</span></label>
-      <button class="bigbtn" onclick="submitLead()">Get my offer now →</button>
+      <label class="consent"><input type="checkbox" id="consent" />
+        <span>I agree to the <a href="/terms-of-service/" target="_blank" rel="noopener">Terms</a> and <a href="/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>, and consent to calls, texts, and emails about my cash offer. Msg/data rates may apply; consent isn’t required to get an offer.
+          <button type="button" class="consent-toggle" data-consent-toggle aria-expanded="false">Show full consent</button>
+          <span class="consent-extra" hidden>I expressly consent to recurring SMS, phone calls, and emails from Home Offer Bridge regarding my property inquiry and cash offer. Message frequency varies. I have read, understood, and agree to be bound by the Terms of Service and Privacy Policy. Consent is not a condition of any purchase.</span>
+        </span>
+      </label>
+      <button class="bigbtn" type="button" onclick="submitLead()">Get my offer now →</button>
       <div class="microtrust"><span><span class="tick">✓</span> One quick call</span><span><span class="tick">✓</span> Zero obligation</span></div>
     </div>
     <div id="s3" style="display:none">
@@ -89,19 +94,19 @@
         <label><input type="checkbox" name="issue" value="code_permits" /> Code / permit issues</label>
       </div>
 
-      <label class="fieldlabel">Describe any damage or needed repairs <span class="opt">(optional — the more detail, the better your offer)</span></label>
+      <label class="fieldlabel">Describe any damage or needed repairs <span class="opt">(optional)</span></label>
       <textarea id="disclose" class="discinput" rows="3" placeholder="e.g. Roof is ~20 years old and leaks in the back bedroom; water heater needs replacing…"></textarea>
 
-      <label class="consent"><input type="checkbox" id="ack" /> <span>I confirm the condition rating and disclosures above are accurate and complete to the best of my knowledge. I understand the final offer is confirmed after a quick property visit.</span></label>
+      <label class="consent"><input type="checkbox" id="ack" /> <span>I confirm the condition rating and disclosures above are accurate to the best of my knowledge. Final offer is confirmed after a quick property visit.</span></label>
       <p class="fieldhint" id="ackErr" style="display:none">Please check the box to confirm your disclosures.</p>
 
-      <button class="bigbtn" onclick="submitDisclosure()">Finish &amp; get my offer →</button>
+      <button class="bigbtn" type="button" onclick="submitDisclosure()">Finish &amp; get my offer →</button>
       <div class="microtrust"><span><span class="tick">✓</span> Speeds up your offer</span><span><span class="tick">✓</span> No obligation</span></div>
     </div>
     <div id="sDone" style="display:none;text-align:center;padding:8px 0">
       <div style="font-size:2rem">✅</div>
       <h3 style="font-family:'Fraunces',serif;margin:6px 0">You're all set.</h3>
-      <p class="stepnote" style="margin:0">A {{CITY}} home specialist will call you within 24 hours with your no-obligation cash offer. Watch for a text from {{PHONE}}.</p>
+      <p class="stepnote" style="margin:0">A {{CITY}} home specialist will call you within 24 hours with your no-obligation cash offer. Watch for a text from <span data-brand-phone>{{PHONE}}</span>.</p>
     </div>
     <div class="meter">
       <div class="row"><span id="meterMsg">Offer readiness</span><span id="meterPct">40%</span></div>
@@ -190,6 +195,9 @@
   <div class="faq">{{FAQ_HTML}}</div>
 </div></section>
 
+
+{{SIBLING_CITIES_HTML}}
+
 <section class="final"><div class="wrap">
   <div class="kicker" style="text-align:center">Ready when you are</div>
   <h2>Get your fair cash offer on your {{CITY}} home today.</h2>
@@ -217,42 +225,10 @@
   </div>
 </div></footer>
 
+<a class="mobcta" href="#offer" id="mobcta">Get my cash offer</a>
 <script>
-  document.getElementById('yr').textContent = new Date().getFullYear();
-  var WEBHOOK = "{{LEAD_WEBHOOK}}";
-  var CITY = "{{CITY}}", STATE = "{{STATE_ABBR}}", SRC = "{{STATE_SLUG}}/{{CITY_SLUG}}";
-  function setMeter(pct,msg){document.getElementById('meterFill').style.width=pct+'%';document.getElementById('meterPct').textContent=pct+'%';if(msg)document.getElementById('meterMsg').textContent=msg;}
-  function next(){var a=document.getElementById('addr').value.trim();if(a.length<4){document.getElementById('addr').focus();return;}
-    document.getElementById('s1').style.display='none';document.getElementById('s2').style.display='block';
-    document.getElementById('p2').classList.add('on');document.getElementById('stepName').textContent='Last step';
-    setMeter(75,'Almost ready');document.getElementById('phone').focus();}
-  var CLIENT_REF = 'cr_' + Date.now().toString(36) + Math.random().toString(36).slice(2,8);
-  function post(payload){try{if(WEBHOOK && WEBHOOK.indexOf('http')===0){fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).catch(function(){});}}catch(e){}}
-  // Step 2 → fire the CORE lead immediately (captured no matter what), then show disclosures.
-  function submitLead(){
-    var name=document.getElementById('name').value.trim();
-    var email=document.getElementById('email').value.trim();
-    var phone=document.getElementById('phone').value.trim();
-    var addr=document.getElementById('addr').value.trim();
-    var consent=document.getElementById('consent').checked;
-    if(phone.replace(/\D/g,'').length<7){document.getElementById('phone').focus();return;}
-    if(!consent){document.getElementById('consent').focus();return;}
-    post({client_ref:CLIENT_REF,event:'lead',name:name,email:email,address:addr,phone:phone,city:CITY,state:STATE,source:SRC,consent:consent,ts:new Date().toISOString(),page:location.href});
-    document.getElementById('s2').style.display='none';document.getElementById('s3').style.display='block';
-    document.getElementById('p3').classList.add('on');document.getElementById('stepName').textContent='Condition & disclosures';
-    setMeter(90,'One quick step');}
-  // Step 3 → enrichment: self-rated condition + disclosures. Correlated by client_ref.
-  function submitDisclosure(){
-    var cond=(document.querySelector('input[name="cond"]:checked')||{}).value;
-    var ackd=document.getElementById('ack').checked;
-    document.getElementById('condErr').style.display=cond?'none':'block';
-    document.getElementById('ackErr').style.display=ackd?'none':'block';
-    if(!cond||!ackd){return;}
-    var issues=Array.prototype.slice.call(document.querySelectorAll('input[name="issue"]:checked')).map(function(i){return i.value;});
-    post({client_ref:CLIENT_REF,event:'enrich',city:CITY,state:STATE,source:SRC,self_rated_condition:cond,disclosed_issues:issues,disclosure_text:document.getElementById('disclose').value.trim(),disclosure_ack:true,ts:new Date().toISOString()});
-    document.getElementById('s3').style.display='none';document.getElementById('sDone').style.display='block';
-    document.getElementById('stepName').textContent='Submitted';setMeter(100,'Offer on the way');}
-  document.getElementById('addr').addEventListener('input',function(){setMeter(this.value.trim().length>3?60:40,'Offer readiness');});
+window.HOB_LEAD={webhook:"{{LEAD_WEBHOOK}}",city:"{{CITY}}",state:"{{STATE_ABBR}}",source:"{{STATE_SLUG}}/{{CITY_SLUG}}",brandPhone:"{{PHONE}}"};
 </script>
+<script src="/assets/lead.js" defer></script>
 </body>
 </html>
